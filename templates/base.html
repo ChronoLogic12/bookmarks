@@ -20,20 +20,9 @@
 </head>
 
 <body>
-    <section class="center-align container row">
-        <!-- flash messages-->
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-    </section>
 
     <nav class="red darken-2">
-        <div class="nav-wrapper container">
+        <div class="nav-wrapper">
             <a href="{{ url_for("home")}}" class="brand-logo">BookMarks</a>
             <a href="#" data-target="navbar" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
             <ul class="right hide-on-med-and-down">
@@ -55,6 +44,18 @@
         <li><a href="#">Sign Out</a></li>
         <li><a href="#">Register</a></li>
     </ul>
+
+    <section class="center-align container row">
+        <!-- flash messages-->
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </section>
 
     <main class="container row">
         {% block content %}
