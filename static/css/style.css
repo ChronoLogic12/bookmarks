@@ -1,3 +1,16 @@
 body {
 	font-family: "Baskervville", serif;
 }
+
+.author {
+	padding: 1rem;
+}
+
+.card {
+	height: 200px;
+	width: 100%;
+}
+
+.truncate {
+	width: 300px;
+}

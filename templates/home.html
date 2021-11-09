@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>BookMarks</h1>
+{% if books|length > 0 %}
+
+{% for book in books %}
+
+<div class="col s12 m6">
+    <div class="card horizontal hoverable">
+        <div class="card-image valign-wrapper">
+            <img src="https://lorempixel.com/100/190/nature/6">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h4>{{ book.title }}</h4>
+                <em class="flow-text">{{ book.author }}</em>
+                <p class="truncate">{{ book.summary }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endif %}
 
 {% endblock content %}
