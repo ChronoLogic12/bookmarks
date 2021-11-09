@@ -16,7 +16,16 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
+# Home route will return recently added and top rated books
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    books = list(mongo.db.books.find())
+    return render_template("home.html", books=books)
+
+
+@app.route("/books")
+def get_all_books():
+    books = list(mongo.db.books.find())
+    return render_template("home.html", books=books)
