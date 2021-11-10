@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col s12">
+    <div class="card horizontal hoverable row">
+        <div class="col s12 m8 offset-m2 card-content">
+            <h3 class="center-align">Add a Book</h3>
+            <form method="POST" action="{{ url_for("add_book") }}">
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">title</i>
+                        <input placeholder="Title" id="title" name="title" type="text" class="validate">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input placeholder="Author" id="author" name="author" type="text" class="validate">
+                        <label for="author">Author</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">library_books</i>
+                        <input placeholder="Genre" id="genre" name="genre" type="text" class="validate">
+                        <label for="genre">Genre</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">image</i>
+                        <input placeholder="Image URL" id="image-url" name="image-url" type="text" class="validate">
+                        <label for="image-url">Image URL</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">short_text</i>
+                        <textarea id="summary" name="summary" placeholder="Please enter the book synopsys"
+                            class="materialize-textarea"></textarea>
+                        <label for="summary">Summary</label>
+                    </div>
+                </div>
+                <div class="center-align">
+                    <button class="btn red darken-2" type="submit" name="add_book">Submit
+                        <i class="material-icons right">create</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
