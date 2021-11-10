@@ -28,4 +28,10 @@ def home():
 @app.route("/books")
 def get_all_books():
     books = list(mongo.db.books.find())
-    return render_template("home.html", books=books)
+    return render_template("all_books.html", books=books)
+
+@app.route("/books/<book_id>")
+def get_book_by_id(book_id):
+    book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
+    
+    return render_template("book.html", book=book)
