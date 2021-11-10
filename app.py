@@ -35,3 +35,21 @@ def get_book_by_id(book_id):
     book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
     
     return render_template("book.html", book=book)
+
+@app.route("/book/add", methods=["POST", "GET"])
+def add_book():
+    if request.method == "POST":
+        try:
+            new_book = {
+                "title": request.form.get("title"),
+                "author": request.form.get("author"),
+                "genre": request.form.get("genre"),
+                "image_url": request.form.get("image-url"),
+                "summary": request.form.get("summary"),
+            }
+
+            _id = mongo.db.books.insert_one(new_book).inserted_id      
+            return redirect(f"/books/{_id}")
+        except Exception as err:
+            print(err)
+    return render_template("add_book.html")
