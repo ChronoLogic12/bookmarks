@@ -2,14 +2,15 @@
 {% block content %}
 
 <div class="container col s6 offset-s3 center-align card">
-    <div class="card-content valign-wrapper row">
+    <div class="card-content valign-wrapper row add-book">
         <div class="col s9">
             <span>
-                <h3 class="inline white">Add a New Book?</h3>
+                <h5 class="inline white">Add a New Book?</h5>
             </span>
         </div>
         <div>
-            <a href="{{url_for("add_book")}}" class="btn-floating btn-large waves-effect waves-light red hoverable"><i
+            <a href="{{url_for("add_book")}}"
+                class="btn-floating btn-large waves-effect waves-light red darken-2 hoverable"><i
                     class="material-icons">add</i></a>
         </div class="col s3">
     </div>
@@ -29,10 +30,15 @@
                 <div class="card-content">
                     <h4 class="flow-text">{{ book.title }}</h4>
                     <div>
+                        {% if book.ratings %}
                         {% for i in range(0, book.ratings) %}
                         <span><i class="material-icons yellow-text">star</i></span>
                         {% endfor %}
                         <span>{{ book.ratings }}</span>
+                        {% else %}
+                        <span><i class="material-icons yellow-text">star_border</i></span>
+                        <span>No current ratigns</span>
+                        {% endif %}
                     </div>
                     <em class="flow-text">{{ book.author }}</em>
                     <p class="truncate">{{ book.summary }}</p>
