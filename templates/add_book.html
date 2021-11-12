@@ -7,33 +7,43 @@
             <h3 class="center-align">Add a Book</h3>
             <form method="POST" action="{{ url_for("add_book") }}">
                 <div class="row">
+                    <!-- book title -->
                     <div class="input-field">
                         <i class="material-icons prefix">title</i>
-                        <input placeholder="Title" id="title" name="title" type="text" class="validate">
+                        <input placeholder="Title" id="title" name="title" type="text" max-length="150" class="validate"
+                            required>
                         <label for="title">Title</label>
                     </div>
+                    <!-- book author -->
                     <div class="input-field">
                         <i class="material-icons prefix">person</i>
-                        <input placeholder="Author" id="author" name="author" type="text" class="validate">
+                        <input placeholder="Author" id="author" name="author" type="text" max-length="150"
+                            class="validate" required>
                         <label for="author">Author</label>
                     </div>
+                    <!-- genre -->
                     <div class="input-field">
                         <i class="material-icons prefix">library_books</i>
-                        <input placeholder="Genre" id="genre" name="genre" type="text" class="validate">
+                        <input placeholder="Genre" id="genre" name="genre" type="text" min-length="3" max-length="50"
+                            class="validate" required>
                         <label for="genre">Genre</label>
                     </div>
+                    <!-- cover image url -->
                     <div class="input-field">
                         <i class="material-icons prefix">image</i>
-                        <input placeholder="Image URL" id="image-url" name="image-url" type="text" class="validate">
+                        <input placeholder="Image URL" id="image-url" name="image-url" type="text" class="validate"
+                            required>
                         <label for="image-url">Image URL</label>
                     </div>
+                    <!-- book summary -->
                     <div class="input-field col s12">
                         <i class="material-icons prefix">short_text</i>
                         <textarea id="summary" name="summary" placeholder="Please enter the book synopsys"
-                            class="materialize-textarea"></textarea>
+                            class="materialize-textarea" required></textarea>
                         <label for="summary">Summary</label>
                     </div>
                 </div>
+                <!-- submit -->
                 <div class="center-align">
                     <button class="btn red darken-2" type="submit" name="add_book">Submit
                         <i class="material-icons right">create</i>
