@@ -79,7 +79,8 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    if session["user"]:
+    if session.get("user"):
         return redirect(url_for(
                             "profile", username=session["user"]))
-    return render_template("login.html")
+    else:
+        return render_template("login.html")
