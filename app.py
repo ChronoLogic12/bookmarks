@@ -110,3 +110,11 @@ def register():
         return redirect(url_for("get_all_books", username=session["user"]))
 
     return render_template("register.html")
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
