@@ -68,7 +68,7 @@ def login():
                         flash("Welcome, {}".format(
                             request.form.get("username")))
                         return redirect(url_for(
-                            "profile", username=session["user"]))
+                            "get_all_books", username=session["user"]))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -79,8 +79,34 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    if session.get("user"):
-        return redirect(url_for(
-                            "profile", username=session["user"]))
-    else:
-        return render_template("login.html")
+    # if session.get("user"):
+    #     return redirect(url_for(
+    #                         "profile", username=session["user"]))
+    # else:
+    #     return render_template("login.html")
+    return render_template("login.html")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username in use")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful!")
+        return redirect(url_for("get_all_books", username=session["user"]))
+
+    return render_template("register.html")
