@@ -19,9 +19,12 @@ body {
 /* Add new book */
 .add-book {
 	margin-bottom: 0;
-	height: 100vh;
 }
 
 textarea.materialize-textarea {
 	height: 10rem;
+}
+
+.flash {
+	margin-top: 20px;
 }
