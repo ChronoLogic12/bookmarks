@@ -1,9 +1,20 @@
+/* global styling and resets */
+
 body {
 	font-family: "Baskervville", serif;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
 .author {
 	padding: 1rem;
+}
+
+.flash {
+	margin-top: 20px;
 }
 
 /* Book preview cards */
@@ -16,6 +27,21 @@ body {
 	margin: 0.5rem;
 }
 
+.book-preview .row,
+.book-preview .col {
+	padding: 0 !important;
+}
+
+.card-image img {
+	max-height: 90%;
+	max-width: inherit;
+	padding-left: 10px;
+}
+
+.card-content {
+	padding: 15px !important;
+}
+
 /* Add new book */
 .add-book {
 	margin-bottom: 0;
@@ -23,8 +49,4 @@ body {
 
 textarea.materialize-textarea {
 	height: 10rem;
-}
-
-.flash {
-	margin-top: 20px;
 }
