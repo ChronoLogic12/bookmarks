@@ -31,6 +31,26 @@ def get_all_books():
     books = list(mongo.db.books.find())
     return render_template("all_books.html", books=books)
 
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    books = list(mongo.db.books.aggregate([
+  {
+    "$search": {
+      "index": 'default',
+      "text": {
+        "query": query,
+        "path": {
+          'wildcard': '*'
+        }
+      }
+    }
+  }
+]))
+    return render_template("all_books.html", books=books)
+
+
 @app.route("/books/<book_id>")
 def get_book_by_id(book_id):
     book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
@@ -78,12 +98,6 @@ def login():
             # invalid username
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
-
-    # if session.get("user"):
-    #     return redirect(url_for(
-    #                         "profile", username=session["user"]))
-    # else:
-    #     return render_template("login.html")
     return render_template("login.html")
 
 

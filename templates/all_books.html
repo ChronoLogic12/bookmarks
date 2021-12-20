@@ -16,6 +16,17 @@
     </div>
 </div>
 
+<form class="col s12 m10 l8 offset-l2 offset-m1 card-content" method="POST" action="{{ url_for("search") }}">
+    <!-- search -->
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix red-text text-darken-2">search</i>
+            <input id="query" name="query" type="text">
+            <label for="query">Search</label>
+        </div>
+    </div>
+</form>
+
 {% if books|length > 0 %}
 
 {% for book in books %}
