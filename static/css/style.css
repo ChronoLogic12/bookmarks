@@ -17,6 +17,13 @@ a {
 	margin-top: 20px;
 }
 
+/* general styling */
+
+.action-card-container {
+	justify-content: center;
+	margin-bottom: 0;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;
@@ -40,11 +47,6 @@ a {
 
 .card-content {
 	padding: 15px !important;
-}
-
-/* Add new book */
-.add-book {
-	margin-bottom: 0;
 }
 
 textarea.materialize-textarea {
