@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col s12">
+    <div class="card horizontal hoverable row">
+        <div class="col s12 m8 offset-m2 card-content">
+            <h3 class="center-align">Edit <em>"{{book.title}}"</em></h3>
+            <form method="POST" action="{{ url_for("add_book") }}">
+                <div class="row">
+                    <!-- book title -->
+                    <div class="input-field">
+                        <i class="material-icons prefix">title</i>
+                        <input value="{{ book.title }}" id="title" name="title" type="text" max-length="150"
+                            class="validate" required>
+                        <label for="title">Title</label>
+                    </div>
+                    <!-- book author -->
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input value="{{ book.author }}" id="author" name="author" type="text" max-length="150"
+                            class="validate" required>
+                        <label for="author">Author</label>
+                    </div>
+                    <!-- genre -->
+                    <div class="input-field">
+                        <i class="material-icons prefix">library_books</i>
+                        <input value="{{ book.genre }}" id="genre" name="genre" type="text" min-length="3"
+                            max-length="50" class="validate" required>
+                        <label for="genre">Genre</label>
+                    </div>
+                    <!-- cover image url -->
+                    <div class="input-field">
+                        <i class="material-icons prefix">image</i>
+                        <input value="{{ book.image_url }}" id="image-url" name="image-url" type="text" class="validate"
+                            required>
+                        <label for="image-url">Image URL</label>
+                    </div>
+                    <!-- book summary -->
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">short_text</i>
+                        <textarea id="summary" name="summary" class="materialize-textarea"
+                            required>{{ book.summary }}</textarea>
+                        <label for="summary">Summary</label>
+                    </div>
+                </div>
+                <!-- submit -->
+                <div class="center-align">
+                    <button class="btn red darken-2" type="submit" name="add_book">Submit
+                        <i class="material-icons right">create</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
