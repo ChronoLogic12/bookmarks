@@ -75,6 +75,31 @@ def add_book():
             print(err)
     return render_template("add_book.html")
 
+
+@app.route("/delete_book/<book_id>")
+def delete_book(book_id):
+    mongo.db.books.delete_one({"_id": ObjectId(book_id)})
+    flash("Book Successfully Removed")
+    return redirect(url_for("get_all_books"))
+
+
+@app.route("/edit_book/<book_id>", methods=["GET", "POST"])
+def edit_book(book_id):
+    if request.method == "POST":
+        new_values = {
+            "title": request.form.get("title"),
+            "author": request.form.get("author"),
+            "genre": request.form.get("genre"),
+            "image_url": request.form.get("image-url"),
+            "summary": request.form.get("summary"),
+        }
+        mongo.db.books.update({"_id": ObjectId(book_id)}, new_values)
+        flash("Book Updated Successfully")
+
+    book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    return render_template("edit_book.html", book=book)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
