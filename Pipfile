@@ -4,9 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-flask-pymongo = "*"
-pymongo = {extras = ["srv"], version = "*"}
+click = "==8.0.3"
+colorama = "==0.4.4"
+dnspython = "==2.1.0"
+itsdangerous = "==2.0.1"
+Flask = "==2.0.2"
+Jinja2 = "==3.0.3"
+MarkupSafe = "==2.0.1"
+Werkzeug = "==2.0.2"
+pymongo = "==4.0.1"
+Flask-PyMongo = "==2.3.0"
+gunicorn = "==20.1.0"
 
 [dev-packages]
 
