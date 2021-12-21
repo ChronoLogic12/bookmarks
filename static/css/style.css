@@ -49,6 +49,10 @@ a {
 	padding: 15px !important;
 }
 
+.admin-controls {
+	margin: 0;
+}
+
 textarea.materialize-textarea {
 	height: 10rem;
 }
