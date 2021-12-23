@@ -49,14 +49,67 @@
 </div>
 
 {% if session.user %}
-
 <div class="container hoverable col s12 m8 l6 offset-l3 offset-m2 card">
     <div class="action-card-container">
         <div class="center-align row s12">
             <h5 class="inline white center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
         </div>
         <div class="center-align row s12">
-            <a class="btn red darken-2 hoverable">Add a review
+            <a class="btn red darken-2 hoverable modal-trigger" href="#write-review">Add a review
+                <i class="material-icons right">rate_review</i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="write-review" class="modal">
+    <div class="modal-content white">
+        <h5 class="inline center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
+        <form method="POST" action="">
+            <div class="row center-align">
+                <!-- review body -->
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">rate_review</i>
+                    <textarea id="review-body" name="review-body" placeholder="Let us know what you think"
+                        class="materialize-textarea" rows="20" required></textarea>
+                    <label for="review">Review</label>
+                </div>
+                <!-- star rating: Interactive star rating made by Jordan-Simonds (https://codepen.io/jexordexan/pen/yyYEJa)-->
+                <div class="star-container row">
+                    <input class="star star-5" id="star-5" type="radio" name="star" value="5" required />
+                    <label class="star star-5" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="star" value="4" />
+                    <label class="star star-4" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="star" value="3" />
+                    <label class="star star-3" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="star" value="2" />
+                    <label class="star star-2" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
+                    <label class="star star-1" for="star-1"></label>
+                </div>
+            </div>
+            <div class="row center-align">
+                <em> by {{session.user}} </em>
+            </div>
+            <!-- submit -->
+            <div class="center-align">
+                <button class="btn red darken-2" type="submit" name="add_review">Submit
+                    <i class="material-icons right">create</i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% else %}
+
+<div class="container hoverable col s12 m8 l6 offset-l3 offset-m2 card">
+    <div class="action-card-container">
+        <div class="center-align row s12">
+            <h5 class="inline white center-align">Login to add a review</em></h5>
+        </div>
+        <div class="center-align row s12">
+            <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("login")}}">login
                 <i class="material-icons right">rate_review</i>
             </a>
         </div>
