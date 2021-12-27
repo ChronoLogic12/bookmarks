@@ -3,7 +3,7 @@
 
 {% if session.user == "admin" %}
 
-<div class="container col s12 m8 l6 offset-l3 offset-m2 card hoverable">
+<div class="container row s12 m8 l6 offset-l3 offset-m2 card hoverable">
     <div class="card-content action-card-container">
         <div class="center-align row s12 admin-controls">
             <span><a class="btn red modal-trigger" href="#delete-confirmation">Delete book</a></span>
@@ -22,7 +22,7 @@
 
 {% endif %}
 
-<div class="col s12">
+<div class="row s12">
     <div class="card horizontal row">
         <div class=" col s3 card-image valign-wrapper">
             <img src="{{ book.image_url }}" alt="{{ book.title }}">
@@ -49,7 +49,8 @@
 </div>
 
 {% if session.user %}
-<div class="container hoverable col s12 m8 l6 offset-l3 offset-m2 card">
+
+<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card">
     <div class="action-card-container">
         <div class="center-align row s12">
             <h5 class="inline white center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
@@ -62,10 +63,41 @@
     </div>
 </div>
 
+{% else %}
+
+<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card">
+    <div class="action-card-container">
+        <div class="center-align row s12">
+            <h5 class="inline white center-align">Login to add a review</em></h5>
+        </div>
+        <div class="center-align row s12">
+            <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("login")}}">login
+                <i class="material-icons right">rate_review</i>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<ul class="row collapsible popout">
+    {% for review in book.reviews %}
+    <li>
+        <div class="collapsible-header">{{ review.author }} {{ review.rating }}
+            {% for i in range(0, review.rating) %}
+            <span><i class="material-icons yellow-text">star</i></span>
+            {% endfor %}
+        </div>
+        <div class="collapsible-body">{{ review.review }}</div>
+    </li>
+
+    {% endfor %}
+</ul>
+
 <div id="write-review" class="modal">
     <div class="modal-content white">
         <h5 class="inline center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for("add_review", book_id=book._id) }}">
             <div class="row center-align">
                 <!-- review body -->
                 <div class="input-field col s12">
@@ -87,8 +119,8 @@
                     <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
                     <label class="star star-1" for="star-1"></label>
                 </div>
-            </div>
-            <div class="row center-align">
+                <input type="hidden" id="user" name="user" value="{{ session.user }}" </div> <div
+                    class="row center-align">
                 <em> by {{session.user}} </em>
             </div>
             <!-- submit -->
@@ -100,22 +132,5 @@
         </form>
     </div>
 </div>
-
-{% else %}
-
-<div class="container hoverable col s12 m8 l6 offset-l3 offset-m2 card">
-    <div class="action-card-container">
-        <div class="center-align row s12">
-            <h5 class="inline white center-align">Login to add a review</em></h5>
-        </div>
-        <div class="center-align row s12">
-            <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("login")}}">login
-                <i class="material-icons right">rate_review</i>
-            </a>
-        </div>
-    </div>
-</div>
-
-{% endif %}
 
 {% endblock content %}
