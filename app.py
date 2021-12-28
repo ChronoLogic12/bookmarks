@@ -117,15 +117,23 @@ def edit_book(book_id):
 @app.route("/add_review/<book_id>", methods=["GET", "POST"])
 def add_review(book_id):
     if request.method == "POST":
-        user = request.form.get("user") 
+        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+        user = request.form.get("user")
+        # check if user has already submitted a review for this book
+        for review in range(0, len(book["reviews"])-1):
+            if book["reviews"][review]["author"] == user:
+                flash("You have already submitted a review for this book")
+                book = get_average_rating(book)
+                return render_template("book.html", book=book)
+
         new_review = {
             "author": user,
             "review": request.form.get("review-body"),
             "rating": int(request.form.get("star"))
-        }
-        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+        }   
         new_values = { "$addToSet": {"reviews": new_review}}
         mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+        book = get_average_rating(book)
     return render_template("book.html", book=book)
 
 
