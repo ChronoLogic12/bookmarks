@@ -88,7 +88,7 @@
                 <h5><em>{{ review.author }}</em></h5>
             </span>
             <span class="col s3 offset-9">
-                {% for i in range(book.avg_rating) %}
+                {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
             </span>
