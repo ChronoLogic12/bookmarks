@@ -120,12 +120,10 @@ def add_review(book_id):
         book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
         user = request.form.get("user")
         # check if user has already submitted a review for this book
-        for review in range(0, len(book["reviews"])-1):
+        for review in range(0, len(book["reviews"])):
             if book["reviews"][review]["author"] == user:
                 flash("You have already submitted a review for this book")
-                book = get_average_rating(book)
-                return render_template("book.html", book=book)
-
+                return redirect(url_for("get_book_by_id", book_id=book_id))
         new_review = {
             "author": user,
             "review": request.form.get("review-body"),
@@ -133,8 +131,7 @@ def add_review(book_id):
         }   
         new_values = { "$addToSet": {"reviews": new_review}}
         mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
-        book = get_average_rating(book)
-    return render_template("book.html", book=book)
+    return redirect(url_for("get_book_by_id", book_id=book_id))
 
 
 @app.route("/login", methods=["GET", "POST"])
