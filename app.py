@@ -29,7 +29,10 @@ def home():
 @app.route("/books")
 def get_all_books():
     books = list(mongo.db.books.find())
-    return render_template("all_books.html", books=books)
+    books_average_rating = []
+    for book in books:
+        books_average_rating.append(get_average_rating(book))
+    return render_template("all_books.html", books=books_average_rating)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -54,7 +57,7 @@ def search():
 @app.route("/books/<book_id>")
 def get_book_by_id(book_id):
     book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
-    
+    book = get_average_rating(book)
     return render_template("book.html", book=book)
 
 @app.route("/book/add", methods=["POST", "GET"])
@@ -67,6 +70,7 @@ def add_book():
                 "genre": request.form.get("genre"),
                 "image_url": request.form.get("image-url"),
                 "summary": request.form.get("summary"),
+                "reviews": [],
             }
 
             _id = mongo.db.books.insert_one(new_book).inserted_id      
@@ -98,6 +102,21 @@ def edit_book(book_id):
 
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
     return render_template("edit_book.html", book=book)
+
+
+@app.route("/add_review/<book_id>", methods=["GET", "POST"])
+def add_review(book_id):
+    if request.method == "POST":
+        user = request.form.get("user") 
+        new_review = {
+            "author": user,
+            "review": request.form.get("review-body"),
+            "rating": int(request.form.get("star"))
+        }
+        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+        new_values = { "$addToSet": {"reviews": new_review}}
+        mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+    return render_template("book.html", book=book)
 
 
 @app.route("/login", methods=["GET", "POST"])
