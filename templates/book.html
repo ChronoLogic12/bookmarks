@@ -31,11 +31,11 @@
             <div class="card-content">
                 <h4 class="flow-text">{{ book.title }}</h4>
                 <div class="valign-wrapper">
-                    {% if book.ratings %}
-                    {% for i in range(0, book.ratings) %}
+                    {% if book.avg_rating %}
+                    {% for i in range(book.avg_rating) %}
                     <span><i class="material-icons yellow-text">star</i></span>
                     {% endfor %}
-                    <span>{{ book.ratings }}</span>
+                    <span>{{ book.avg_rating }}</span>
                     {% else %}
                     <span><i class="material-icons yellow-text">star_border</i></span>
                     <span>No current ratings</span>
@@ -50,7 +50,7 @@
 
 {% if session.user %}
 
-<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card">
+<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
         <div class="center-align row s12">
             <h5 class="inline white center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
@@ -65,7 +65,7 @@
 
 {% else %}
 
-<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card">
+<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
         <div class="center-align row s12">
             <h5 class="inline white center-align">Login to add a review</em></h5>
@@ -80,15 +80,20 @@
 
 {% endif %}
 
-<ul class="row collapsible popout">
+<ul class="row s12 collapsible popout">
     {% for review in book.reviews %}
     <li>
-        <div class="collapsible-header">{{ review.author }} {{ review.rating }}
-            {% for i in range(0, review.rating) %}
-            <span><i class="material-icons yellow-text">star</i></span>
-            {% endfor %}
+        <div class="collapsible-header valign-wrapper">
+            <span>
+                <h5><em>{{ review.author }}</em></h5>
+            </span>
+            <span class="col s3 offset-9">
+                {% for i in range(book.avg_rating) %}
+                <span><i class="material-icons yellow-text">star</i></span>
+                {% endfor %}
+            </span>
         </div>
-        <div class="collapsible-body">{{ review.review }}</div>
+        <p class="collapsible-body">{{ review.review }}</p>
     </li>
 
     {% endfor %}
@@ -96,7 +101,7 @@
 
 <div id="write-review" class="modal">
     <div class="modal-content white">
-        <h5 class="inline center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
+        <h5 class="center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
         <form method="POST" action="{{ url_for("add_review", book_id=book._id) }}">
             <div class="row center-align">
                 <!-- review body -->

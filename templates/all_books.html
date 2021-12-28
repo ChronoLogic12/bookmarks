@@ -41,11 +41,11 @@
                 <div class="card-content">
                     <h4 class="flow-text">{{ book.title }}</h4>
                     <div>
-                        {% if book.ratings %}
-                        {% for i in range(0, book.ratings) %}
+                        {% if book.avg_rating %}
+                        {% for i in range(book.avg_rating) %}
                         <span><i class="material-icons yellow-text">star</i></span>
                         {% endfor %}
-                        <span>{{ book.ratings }}</span>
+                        <span>{{ book.avg_rating }}</span>
                         {% else %}
                         <span><i class="material-icons yellow-text">star_border</i></span>
                         <span>No current ratings</span>
