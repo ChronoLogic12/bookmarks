@@ -17,6 +17,19 @@ a {
 	margin-top: 20px;
 }
 
+.card {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.collapsible-header i {
+	margin-right: 0;
+}
+
+.review-prompt {
+	padding: 0.5rem;
+}
+
 /* general styling */
 
 .action-card-container {
