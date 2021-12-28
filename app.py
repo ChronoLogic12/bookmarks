@@ -22,7 +22,7 @@ def get_average_rating(book):
         book["avg_rating"] = 0
     else:
         total = 0
-        for review in range(0, len(book["reviews"])-1):
+        for review in range(0, len(book["reviews"])):
             total += book["reviews"][review]["rating"]
         book["avg_rating"] = round(total / len(book["reviews"]))
     return book
