@@ -61,8 +61,9 @@ def get_all_average_ratings(books):
 @app.route("/")
 @app.route("/home")
 def home():
-    books = list(mongo.db.books.find())
-    return render_template("home.html", books=books)
+    books = get_all_average_ratings(list(mongo.db.books.find()))
+    books.sort(key=lambda book: book["avg_rating"], reverse=True)
+    return render_template("home.html", books=books[:6])
 
 
 @app.route("/books")
