@@ -59,8 +59,7 @@ def search():
         }
       }
     }
-  }
-]))
+  }]))
     return render_template("all_books.html", books=books)
 
 
@@ -82,7 +81,6 @@ def add_book():
                 "summary": request.form.get("summary"),
                 "reviews": [],
             }
-
             _id = mongo.db.books.insert_one(new_book).inserted_id      
             return redirect(f"/books/{_id}")
         except Exception as err:
@@ -191,6 +189,20 @@ def logout():
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
+
+
+@app.route("/profile/<user_id>", methods=["POST", "GET"])
+def profile(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
+    user_reviews = []
+    for book in books:
+        for i in range(0, len(book["reviews"])):
+            if book["reviews"][i]["author"] == user["username"]:
+                user_reviews.append(book["reviews"][i])
+                user_reviews[i]["book_title"] = book["title"]
+    user["review_count"] = len(user_reviews)
+    return render_template("profile.html", user=user, reviews=user_reviews)
 
 
 if __name__ == "__main__":
