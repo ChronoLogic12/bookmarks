@@ -37,6 +37,10 @@ a {
 	margin-bottom: 0;
 }
 
+.capitalize {
+	text-transform: capitalize;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;
@@ -114,4 +118,11 @@ label.star:before {
 	text-align: center;
 	width: 100%;
 	max-width: 300px;
+}
+
+/* profile */
+
+.review-count {
+	margin-top: 0rem;
+	margin-bottom: 0rem;
 }

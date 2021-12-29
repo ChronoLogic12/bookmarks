@@ -85,7 +85,7 @@
     <li>
         <div class="collapsible-header valign-wrapper">
             <span>
-                <h5><em>{{ review.author }}</em></h5>
+                <h5><em class="capitalize">{{ review.author }}</em></h5>
             </span>
             <span class="col s3 offset-9">
                 {% for i in range(review.rating) %}
@@ -126,7 +126,7 @@
                 </div>
                 <input type="hidden" id="user" name="user" value="{{ session.user }}" </div> <div
                     class="row center-align">
-                <em> by {{session.user}} </em>
+                <em class="capitalize"> by {{session.user}} </em>
             </div>
             <!-- submit -->
             <div class="center-align">
