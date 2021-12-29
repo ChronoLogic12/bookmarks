@@ -191,9 +191,9 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/profile/<user_id>", methods=["POST", "GET"])
-def profile(user_id):
-    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+@app.route("/profile/<username>", methods=["POST", "GET"])
+def profile(username):
+    user = mongo.db.users.find_one({"username": username})
     books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
     user_reviews = []
     for book in books:
