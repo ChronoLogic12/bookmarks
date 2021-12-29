@@ -1,24 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 center-align card">
+    <div class="card-content">
+        <h2>Top Rated Books</h2>
+    </div>
+</div>
+
 {% if books|length > 0 %}
 
 {% for book in books %}
 
 <a href="{{ url_for("get_book_by_id", book_id=book._id)}}">
     <div class="col s12 l6">
-        <div class="card horizontal hoverable row">
-            <div class=" col s3 card-image valign-wrapper">
+        <div class="card book-preview horizontal hoverable row">
+            <div class="col s3 card-image valign-wrapper">
                 <img src="{{ book.image_url }}" alt="{{ book.title }}">
             </div>
             <div class="card-stacked col s9">
                 <div class="card-content">
                     <h4 class="flow-text">{{ book.title }}</h4>
                     <div>
-                        {% for i in range(0, book.ratings) %}
+                        {% if book.avg_rating %}
+                        {% for i in range(book.avg_rating) %}
                         <span><i class="material-icons yellow-text">star</i></span>
                         {% endfor %}
-                        <span>{{ book.ratings }}</span>
+                        <span>{{ book.avg_rating }}</span>
+                        {% else %}
+                        <span><i class="material-icons yellow-text">star_border</i></span>
+                        <span>No current ratings</span>
+                        {% endif %}
                     </div>
                     <em class="flow-text">{{ book.author }}</em>
                     <p class="truncate">{{ book.summary }}</p>
