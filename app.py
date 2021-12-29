@@ -17,7 +17,18 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 def get_average_rating(book):
+    """
+    Takes a book object and returns an updated object
+    containing the calculated average review value.
+
+        Parameters:
+            book (obj): {}
+
+            Returns (obj): {**book, avg_rating (int)}
+    """
+
     if len(book["reviews"]) == 0:
         book["avg_rating"] = 0
     else:
@@ -26,6 +37,24 @@ def get_average_rating(book):
             total += book["reviews"][review]["rating"]
         book["avg_rating"] = round(total / len(book["reviews"]))
     return book
+
+
+def get_all_average_ratings(books):
+    """
+    Takes a list of book objects and returns an updated
+    list with average review values calculated for each book.
+
+        Parameters:
+            books (list): A list of book objects
+
+        Returns:
+            books_average_rating (list): A list of book objects
+            containing calculated average ratings
+    """
+    books_average_rating = []
+    for book in books:
+        books_average_rating.append(get_average_rating(book))
+    return books_average_rating
 
 
 # Home route will return recently added and top rated books
@@ -38,11 +67,8 @@ def home():
 
 @app.route("/books")
 def get_all_books():
-    books = list(mongo.db.books.find())
-    books_average_rating = []
-    for book in books:
-        books_average_rating.append(get_average_rating(book))
-    return render_template("all_books.html", books=books_average_rating)
+    books = get_all_average_ratings(list(mongo.db.books.find()))
+    return render_template("all_books.html", books=books)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -68,6 +94,7 @@ def get_book_by_id(book_id):
     book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
     book = get_average_rating(book)
     return render_template("book.html", book=book)
+
 
 @app.route("/book/add", methods=["POST", "GET"])
 def add_book():
@@ -197,10 +224,12 @@ def profile(username):
     books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
     user_reviews = []
     for book in books:
-        for i in range(0, len(book["reviews"])):
-            if book["reviews"][i]["author"] == user["username"]:
-                user_reviews.append(book["reviews"][i])
-                user_reviews[i]["book_title"] = book["title"]
+        for i in range(len(book["reviews"])):
+            print(book["reviews"][i]["author"])
+            if book["reviews"][i]["author"] == username:
+                values = book["reviews"][i]
+                values["book_title"] = book["title"]
+                user_reviews.append(values)
     user["review_count"] = len(user_reviews)
     return render_template("profile.html", user=user, reviews=user_reviews)
 
