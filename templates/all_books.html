@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- add a new book - only visable to a user in session-->
 {% if session.user %}
 <div class="container col s12 m8 l6 offset-l3 offset-m2 center-align card">
     <div class="card-content valign-wrapper row action-card-container">
@@ -16,11 +17,10 @@
         </div class="col s3">
     </div>
 </div>
-
 {% endif %}
 
+<!-- search -->
 <form class="col s12 m10 l8 offset-l2 offset-m1 card-content" method="POST" action="{{ url_for("search") }}">
-    <!-- search -->
     <div class="row">
         <div class="input-field col s12">
             <i class="material-icons prefix red-text text-darken-2">search</i>
@@ -30,6 +30,7 @@
     </div>
 </form>
 
+<!-- preview card for each book-->
 {% if books|length > 0 %}
 
 {% for book in books %}
@@ -45,12 +46,18 @@
                     <h4 class="flow-text">{{ book.title }}</h4>
                     <div>
                         {% if book.avg_rating %}
-                        {% for i in range(book.avg_rating) %}
+                        <!--add a number of filled stars equal to the raded value of the average rating-->
+                        {% for i in range(book.avg_rating|round|int) %}
                         <span><i class="material-icons yellow-text">star</i></span>
                         {% endfor %}
-                        <span>{{ book.avg_rating }}</span>
+                        <!--add a number of empty stars equal to make a total of 5-->
+                        {% for i in range(5 - book.avg_rating|round|int) %}
+                        <span><i class="material-icons grey-text">star_border</i></span>
+                        {% endfor %}
+                        <span>{{ book.avg_rating }}/5</span>
+                        <!--display if there are currently no ratings for this book-->
                         {% else %}
-                        <span><i class="material-icons yellow-text">star_border</i></span>
+                        <span><i class="material-icons grey-text">star_border</i></span>
                         <span>No current ratings</span>
                         {% endif %}
                     </div>

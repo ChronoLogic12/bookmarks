@@ -26,6 +26,9 @@
                 {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
+                {% for i in range(5 - review.rating) %}
+                <span><i class="material-icons grey-text">star_border</i></span>
+                {% endfor %}
             </span>
         </div>
         <p class="collapsible-body">{{ review.review }}</p>

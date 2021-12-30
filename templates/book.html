@@ -32,12 +32,18 @@
                 <h4 class="flow-text">{{ book.title }}</h4>
                 <div class="valign-wrapper">
                     {% if book.avg_rating %}
-                    {% for i in range(book.avg_rating) %}
+                    <!--add a number of filled stars equal to the raded value of the average rating-->
+                    {% for i in range(book.avg_rating|round|int) %}
                     <span><i class="material-icons yellow-text">star</i></span>
                     {% endfor %}
-                    <span>{{ book.avg_rating }}</span>
+                    <!--add a number of empty stars equal to make a total of 5-->
+                    {% for i in range(5 - book.avg_rating|round|int) %}
+                    <span><i class="material-icons grey-text">star_border</i></span>
+                    {% endfor %}
+                    <span>{{ book.avg_rating }}/5</span>
+                    <!--display if there are currently no ratings for this book-->
                     {% else %}
-                    <span><i class="material-icons yellow-text">star_border</i></span>
+                    <span><i class="material-icons grey-text">star_border</i></span>
                     <span>No current ratings</span>
                     {% endif %}
                 </div>
@@ -111,7 +117,7 @@
                         class="materialize-textarea" rows="20" required></textarea>
                     <label for="review">Review</label>
                 </div>
-                <!-- star rating: Interactive star rating made by Jordan-Simonds (https://codepen.io/jexordexan/pen/yyYEJa)-->
+                <!-- star rating: Interactive star rating element adapted from the work of Jordan-Simonds(jexordexan) (https://codepen.io/jexordexan/pen/yyYEJa)-->
                 <div class="star-container row">
                     <input class="star star-5" id="star-5" type="radio" name="star" value="5" required />
                     <label class="star star-5" for="star-5"></label>

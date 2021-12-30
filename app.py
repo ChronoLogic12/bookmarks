@@ -35,7 +35,7 @@ def get_average_rating(book):
         total = 0
         for review in range(0, len(book["reviews"])):
             total += book["reviews"][review]["rating"]
-        book["avg_rating"] = round(total / len(book["reviews"]))
+        book["avg_rating"] = round(total / len(book["reviews"]), 2)
     return book
 
 
@@ -226,7 +226,6 @@ def profile(username):
     user_reviews = []
     for book in books:
         for i in range(len(book["reviews"])):
-            print(book["reviews"][i]["author"])
             if book["reviews"][i]["author"] == username:
                 values = book["reviews"][i]
                 values["book_title"] = book["title"]
