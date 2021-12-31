@@ -54,7 +54,14 @@
     </div>
 </div>
 
-{% if session.user %}
+{% set user_review = namespace(complete=false) %}
+{% for review in book.reviews %}
+{% if review["author"] == session.user %}
+{% set user_review.complete=true %}
+{% endif %}
+{% endfor %}
+
+{% if (session.user and ( user_review.complete == false )) %}
 
 <div class="container row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
@@ -69,7 +76,7 @@
     </div>
 </div>
 
-{% else %}
+{% elif not session.user and ( user_review.complete == false ) %}
 
 <div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
