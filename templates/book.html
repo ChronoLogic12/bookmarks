@@ -78,14 +78,17 @@
 
 {% elif not session.user and ( user_review.complete == false ) %}
 
-<div class="container hoverable row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
+<div class="container row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
         <div class="center-align row s12">
             <h5 class="inline white center-align">Login to add a review</em></h5>
         </div>
         <div class="center-align row s12">
             <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("login")}}">login
-                <i class="material-icons right">rate_review</i>
+                <i class="material-icons right">person</i>
+            </a>
+            <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("register")}}">Register
+                <i class="material-icons right">person_add</i>
             </a>
         </div>
     </div>
