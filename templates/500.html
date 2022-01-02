@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+    <!-- google font imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+    <!-- custome style sheet-->
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css")}}" type="text/css">
+    {% block styles %}
+    {% endblock styles %}
+    <title>BookMarks</title>
+</head>
+
+<body>
+
+    <main class="error-container center-align valign-wrapper">
+        <div class="card flow-text">
+            <div class="card-content">
+                <p>500 Internal Server Error</p>
+                </n>
+                <p>The server has encountered an error</p>
+                <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("home")}}">Home
+                    <i class="material-icons right">home</i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{url_for("static", filename="js/script.js") }}"></script>
+    {% endblock scripts %}
+
+</body>
+
+</html>
