@@ -1,7 +1,9 @@
 import os
+from random import expovariate
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for,
+    abort)
 from flask_pymongo import PyMongo
 from bson.objectid import (ObjectId, InvalidId)
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -74,27 +76,41 @@ def get_all_books():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
-    books = list(mongo.db.books.aggregate([
-  {
-    "$search": {
-      "index": 'default',
-      "text": {
-        "query": query,
-        "path": {
-          'wildcard': '*'
-        }
-      }
-    }
-  }]))
-    return render_template("all_books.html", books=books)
+    if request.method == "POST":
+        try:
+            query = request.form.get("query")
+            if len(query) < 1:
+                raise ValueError("Please input a search value")
+            books = list(mongo.db.books.aggregate([{
+                "$search": {
+                    "index": 'default',
+                    "text": {
+                        "query": query,
+                        "path": {
+                        'wildcard': '*'
+                        }
+                    }
+                }
+            }]))
+            return render_template("all_books.html", books=books)
+        except ValueError:
+            flash("Invalid value. Minimum of one character required")
+            return redirect(url_for("get_all_books"))
+        except:
+            abort(500)
+        
 
 
 @app.route("/books/<book_id>")
 def get_book_by_id(book_id):
-    book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
-    book = get_average_rating(book)
-    return render_template("book.html", book=book)
+    try:
+        book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
+        book = get_average_rating(book)
+        return render_template("book.html", book=book)
+    except InvalidId:
+        abort(404)
+    except:
+        abort(500)
 
 
 @app.route("/book/add", methods=["POST", "GET"])
@@ -232,6 +248,17 @@ def profile(username):
                 user_reviews.append(values)
     user["review_count"] = len(user_reviews)
     return render_template("profile.html", user=user, reviews=user_reviews)
+
+
+# error handlers
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template("500.html"), 500
 
 
 if __name__ == "__main__":
