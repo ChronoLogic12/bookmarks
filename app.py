@@ -202,6 +202,21 @@ def add_review(book_id):
     return redirect(url_for("get_book_by_id", book_id=book_id))
 
 
+@app.route("/delete_review/<book_id>/<user>")
+def delete_review(book_id, user):
+    try:
+        mongo.db.books.update_one(
+                { "_id": ObjectId(book_id) },
+                { "$pull": { 'reviews': { "author": user }
+            }});
+        flash("Review Successfully Removed")
+        return redirect(url_for("get_book_by_id", book_id=book_id))
+    except InvalidId:
+        abort(404)
+    except:
+        abort(500)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
