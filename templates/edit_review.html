@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col s12 card center-align">
+    <div class="card-content">
+        <h5 class="row center-align">What did you think of <br><em>"{{book.title}}"?</em></h5>
+        <form class="center-align" method="POST" action="{{ url_for("edit_review", book_id=book._id ) }}">
+            <div class="center-align">
+                <!-- review body -->
+                <div class="row input-field col s12">
+                    <i class="material-icons prefix">rate_review</i>
+                    <textarea id="review-body" name="review-body" placeholder="Let us know what you think"
+                        class="materialize-textarea" rows="20" required>{{review.review}}</textarea>
+                    <label for="review">Review</label>
+                </div>
+                <!-- star rating: Interactive star rating element adapted from the work of Jordan-Simonds(jexordexan) (https://codepen.io/jexordexan/pen/yyYEJa)-->
+                <div class="star-container row">
+                    <input class="star star-5" id="star-5" type="radio" name="star" value="5" required />
+                    <label class="star star-5" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="star" value="4" />
+                    <label class="star star-4" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="star" value="3" />
+                    <label class="star star-3" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="star" value="2" />
+                    <label class="star star-2" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
+                    <label class="star star-1" for="star-1"></label>
+                </div>
+                <input type="hidden" id="user" name="user" value="{{ session.user }}" </div> <div
+                    class="row center-align">
+                <em class="capitalize"> by {{session.user}} </em>
+            </div>
+            <!-- submit -->
+            <div class="center-align">
+                <button class="btn red darken-2" type="submit" name="edit_review">Submit
+                    <i class="material-icons right">edit</i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

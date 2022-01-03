@@ -118,6 +118,7 @@ label.star:before {
 	text-align: center;
 	width: 100%;
 	max-width: 300px;
+	margin: auto !important;
 }
 
 /* profile */
