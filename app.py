@@ -63,15 +63,21 @@ def get_all_average_ratings(books):
 @app.route("/")
 @app.route("/home")
 def home():
-    books = get_all_average_ratings(list(mongo.db.books.find()))
-    books.sort(key=lambda book: book["avg_rating"], reverse=True)
-    return render_template("home.html", books=books[:6])
+    try:
+        books = get_all_average_ratings(list(mongo.db.books.find()))
+        books.sort(key=lambda book: book["avg_rating"], reverse=True)
+        return render_template("home.html", books=books[:6])
+    except:
+        abort(500)
 
 
 @app.route("/books")
 def get_all_books():
-    books = get_all_average_ratings(list(mongo.db.books.find()))
-    return render_template("all_books.html", books=books)
+    try:
+        books = get_all_average_ratings(list(mongo.db.books.find()))
+        return render_template("all_books.html", books=books)
+    except:
+        abort(500)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -98,7 +104,6 @@ def search():
             return redirect(url_for("get_all_books"))
         except:
             abort(500)
-        
 
 
 @app.route("/books/<book_id>")
@@ -127,30 +132,45 @@ def add_book():
             }
             _id = mongo.db.books.insert_one(new_book).inserted_id      
             return redirect(f"/books/{_id}")
-        except Exception as err:
-            print(err)
+        except:
+            abort(500)
     return render_template("add_book.html")
 
 
 @app.route("/delete_book/<book_id>")
 def delete_book(book_id):
-    mongo.db.books.delete_one({"_id": ObjectId(book_id)})
-    flash("Book Successfully Removed")
-    return redirect(url_for("get_all_books"))
+    try:
+        mongo.db.books.delete_one({"_id": ObjectId(book_id)})
+        flash("Book Successfully Removed")
+        return redirect(url_for("get_all_books"))
+    except InvalidId:
+        abort(404)
+    except:
+        abort(500)
 
 
 @app.route("/edit_book/<book_id>", methods=["GET", "POST"])
 def edit_book(book_id):
     if request.method == "POST":
-        new_values = {
-            "title": request.form.get("title"),
-            "author": request.form.get("author"),
-            "genre": request.form.get("genre"),
-            "image_url": request.form.get("image-url"),
-            "summary": request.form.get("summary"),
-        }
-        mongo.db.books.update({"_id": ObjectId(book_id)}, new_values)
-        flash("Book Updated Successfully")
+        try:
+            new_values = { 
+                "$set": {
+                "title": request.form.get("title"),
+                "author": request.form.get("author"),
+                "genre": request.form.get("genre"),
+                "image_url": request.form.get("image-url"),
+                "summary": request.form.get("summary"),
+                }
+            }
+            mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+            flash("Book Updated Successfully")
+            book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+            return render_template("book.html", book=book)
+            
+        except InvalidId:
+            abort(404)
+        except:
+            abort(500)
 
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
     return render_template("edit_book.html", book=book)
@@ -159,95 +179,115 @@ def edit_book(book_id):
 @app.route("/add_review/<book_id>", methods=["GET", "POST"])
 def add_review(book_id):
     if request.method == "POST":
-        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
-        user = request.form.get("user")
-        # check if user has already submitted a review for this book
-        for review in range(0, len(book["reviews"])):
-            if book["reviews"][review]["author"] == user:
-                flash("You have already submitted a review for this book")
-                return redirect(url_for("get_book_by_id", book_id=book_id))
-        new_review = {
-            "author": user,
-            "review": request.form.get("review-body"),
-            "rating": int(request.form.get("star"))
-        }   
-        new_values = { "$addToSet": {"reviews": new_review}}
-        mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+        try:
+            book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+            user = request.form.get("user")
+            # check if user has already submitted a review for this book
+            for review in range(0, len(book["reviews"])):
+                if book["reviews"][review]["author"] == user:
+                    flash("You have already submitted a review for this book")
+                    return redirect(url_for("get_book_by_id", book_id=book_id))
+            new_review = {
+                "author": user,
+                "review": request.form.get("review-body"),
+                "rating": int(request.form.get("star"))
+            }   
+            new_values = { "$addToSet": {"reviews": new_review}}
+            mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+        except InvalidId:
+            abort(404)
+        except:
+            abort(500)
+
     return redirect(url_for("get_book_by_id", book_id=book_id))
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        try:
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
 
-        if existing_user:
-            if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        flash("Welcome, {}".format(
-                            request.form.get("username")))
-                        return redirect(url_for(
-                            "get_all_books", username=session["user"]))
+            if existing_user:
+                if check_password_hash(
+                        existing_user["password"], request.form.get("password")):
+                            session["user"] = request.form.get("username").lower()
+                            flash("Welcome, {}".format(
+                                request.form.get("username")))
+                            return redirect(url_for(
+                                "get_all_books", username=session["user"]))
+                else:
+                    # invalid password
+                    flash("Incorrect Username and/or Password")
+                    return redirect(url_for("login"))
+
             else:
-                # invalid password
+                # invalid username
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("login"))
-
-        else:
-            # invalid username
-            flash("Incorrect Username and/or Password")
-            return redirect(url_for("login"))
+        except:
+            abort(500)
     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # check if username already exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        try:
+            # check if username already exists in db
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
 
-        if existing_user:
-            flash("Username in use")
-            return redirect(url_for("register"))
+            if existing_user:
+                flash("Username in use")
+                return redirect(url_for("register"))
 
-        register = {
-            "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
-        }
-        mongo.db.users.insert_one(register)
+            register = {
+                "username": request.form.get("username").lower(),
+                "password": generate_password_hash(request.form.get("password"))
+            }
+            mongo.db.users.insert_one(register)
 
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
-        return redirect(url_for("get_all_books", username=session["user"]))
+            # put the new user into 'session' cookie
+            session["user"] = request.form.get("username").lower()
+            flash("Registration Successful!")
+            return redirect(url_for("get_all_books", username=session["user"]))
+        except:
+            abort(500)
 
     return render_template("register.html")
 
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookie
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect(url_for("login"))
+    try:
+        # remove user from session cookie
+        flash("You have been logged out")
+        session.pop("user")
+        return redirect(url_for("login"))
+    except:
+        abort(500)
 
 
 @app.route("/profile/<username>", methods=["POST", "GET"])
 def profile(username):
-    user = mongo.db.users.find_one({"username": username})
-    books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
-    user_reviews = []
-    for book in books:
-        for i in range(len(book["reviews"])):
-            if book["reviews"][i]["author"] == username:
-                values = book["reviews"][i]
-                values["book_title"] = book["title"]
-                user_reviews.append(values)
-    user["review_count"] = len(user_reviews)
-    return render_template("profile.html", user=user, reviews=user_reviews)
+    try:
+        user = mongo.db.users.find_one({"username": username})
+        books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
+        user_reviews = []
+        for book in books:
+            for i in range(len(book["reviews"])):
+                if book["reviews"][i]["author"] == username:
+                    values = book["reviews"][i]
+                    values["book_title"] = book["title"]
+                    user_reviews.append(values)
+        user["review_count"] = len(user_reviews)
+        return render_template("profile.html", user=user, reviews=user_reviews)
+    except (InvalidId, TypeError):
+        abort(404)
+    except:
+        abort(500)
 
 
 # error handlers
