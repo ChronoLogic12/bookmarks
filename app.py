@@ -217,6 +217,44 @@ def delete_review(book_id, user):
         abort(500)
 
 
+@app.route("/edit_review/<book_id>", methods=["GET", "POST"])
+def edit_review(book_id):
+    if request.method == "POST":
+        try:
+            user = session["user"]
+            new_values = { 
+                "author": user,
+                "review": request.form.get("review-body"),
+                "rating": int(request.form.get("star"))
+            }
+            mongo.db.books.update_one(
+                { "_id": ObjectId(book_id), "reviews.author": user },
+                { "$set": {"reviews.$": new_values }}
+            )
+            flash("Review Updated Successfully")
+            book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+            return redirect(url_for("get_book_by_id", book_id=book_id))
+            
+        except InvalidId:
+            abort(404)
+        except:
+            abort(500)
+    try:
+        user = session["user"]
+        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+        review = mongo.db.books.find_one(
+                    { "_id": ObjectId(book_id) },
+                    { "reviews": {"$elemMatch": {"author": user}}
+                })["reviews"][0];
+        
+        return render_template("edit_review.html", book=book, review=review)
+
+    except InvalidId:
+            abort(404)
+    except:
+        abort(500)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
