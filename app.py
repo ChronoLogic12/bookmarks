@@ -1,4 +1,6 @@
 import os
+import requests
+import validators
 from random import expovariate
 from flask import (
     Flask, flash, render_template,
@@ -68,9 +70,9 @@ def is_logged_in():
 
 def get_reviews_for_user_from_books(books, username):
     """
-    Takes a string containing all the books the user 
+    Takes a list containing all the books the user 
     has reviews and their username and returns a list 
-    containing only their reviews.
+    containing only the users reviews.
 
         Parameter:
             books (list of object): [{}, ]
@@ -87,6 +89,22 @@ def get_reviews_for_user_from_books(books, username):
                 values["book_title"] = book["title"]
                 user_reviews.append(values)
     return user_reviews
+
+
+def validate_image_url(image_url):
+    """
+    Takes a string and checks if it is a valid image url.
+    Returns the image_url if true and a placeholder image
+    if false
+    """
+    if not validators.url(image_url):
+        return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+    image_formats = ("image/png", "image/jpeg", "image/jpg")
+    r = requests.head(image_url)
+    if r.headers["content-type"] in image_formats:
+        return image_url
+    return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+    
 
 @app.route("/")
 @app.route("/home")
@@ -158,7 +176,7 @@ def add_book():
                 "title": request.form.get("title"),
                 "author": request.form.get("author"),
                 "genre": request.form.get("genre"),
-                "image_url": request.form.get("image-url"),
+                "image_url": validate_image_url(request.form.get("image-url")),
                 "summary": request.form.get("summary"),
                 "reviews": [],
             }
@@ -198,7 +216,7 @@ def edit_book(book_id):
                 "title": request.form.get("title"),
                 "author": request.form.get("author"),
                 "genre": request.form.get("genre"),
-                "image_url": request.form.get("image-url"),
+                "image_url": validate_image_url(request.form.get("image-url")),
                 "summary": request.form.get("summary"),
                 }
             }
