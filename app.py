@@ -20,7 +20,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-def get_average_rating(book):
+def set_average_rating(book):
     """
     Takes a book object and returns an updated object
     containing the calculated average review value.
@@ -41,7 +41,7 @@ def get_average_rating(book):
     return book
 
 
-def get_all_average_ratings(books):
+def set_average_rating_for_all_books(books):
     """
     Takes a list of book objects and returns an updated
     list with average review values calculated for each book.
@@ -55,7 +55,7 @@ def get_all_average_ratings(books):
     """
     books_average_rating = []
     for book in books:
-        books_average_rating.append(get_average_rating(book))
+        books_average_rating.append(set_average_rating(book))
     return books_average_rating
 
 
@@ -64,7 +64,7 @@ def get_all_average_ratings(books):
 @app.route("/home")
 def home():
     try:
-        books = get_all_average_ratings(list(mongo.db.books.find()))
+        books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         books.sort(key=lambda book: book["avg_rating"], reverse=True)
         return render_template("home.html", books=books[:6])
     except:
@@ -74,7 +74,7 @@ def home():
 @app.route("/books")
 def get_all_books():
     try:
-        books = get_all_average_ratings(list(mongo.db.books.find()))
+        books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         return render_template("all_books.html", books=books)
     except:
         abort(500)
@@ -110,7 +110,7 @@ def search():
 def get_book_by_id(book_id):
     try:
         book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
-        book = get_average_rating(book)
+        book = set_average_rating(book)
         return render_template("book.html", book=book)
     except InvalidId:
         abort(404)
