@@ -60,10 +60,33 @@ def set_average_rating_for_all_books(books):
 
 
 def is_logged_in():
+    """Return true if user is in session"""
     if session and session["user"]:
         return True
     return False
 
+
+def get_reviews_for_user_from_books(books, username):
+    """
+    Takes a string containing all the books the user 
+    has reviews and their username and returns a list 
+    containing only their reviews.
+
+        Parameter:
+            books (list of object): [{}, ]
+            username (str): user in session
+
+            returns (list): [user reviews]
+    """
+
+    user_reviews = []
+    for book in books:
+        for i in range(len(book["reviews"])):
+            if book["reviews"][i]["author"] == username:
+                values = book["reviews"][i]
+                values["book_title"] = book["title"]
+                user_reviews.append(values)
+    return user_reviews
 
 @app.route("/")
 @app.route("/home")
@@ -111,7 +134,7 @@ def search():
             abort(500)
 
 
-@app.route("/books/<book_id>/view")
+@app.route("/book/<book_id>/view")
 def get_book_by_id(book_id):
     try:
         book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
@@ -170,7 +193,7 @@ def edit_book(book_id):
         
     if request.method == "POST":
         try:
-            new_values = { 
+            new_values = {
                 "$set": {
                 "title": request.form.get("title"),
                 "author": request.form.get("author"),
@@ -202,7 +225,7 @@ def add_review(book_id):
     if request.method == "POST":
         try:
             book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
-            user = request.form.get("user")
+            user = session["user"]
             # check if user has already submitted a review for this book
             for review in range(0, len(book["reviews"])):
                 if book["reviews"][review]["author"] == user:
@@ -212,7 +235,7 @@ def add_review(book_id):
                 "author": user,
                 "review": request.form.get("review-body"),
                 "rating": int(request.form.get("star"))
-            }   
+            }
             new_values = { "$addToSet": {"reviews": new_review}}
             mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
         except InvalidId:
@@ -361,18 +384,17 @@ def logout():
         abort(500)
 
 
-@app.route("/profile/<username>", methods=["POST", "GET"])
-def profile(username):
+@app.route("/profile", methods=["POST", "GET"])
+def profile():
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+
     try:
+        username = session["user"]
         user = mongo.db.users.find_one({"username": username})
         books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
-        user_reviews = []
-        for book in books:
-            for i in range(len(book["reviews"])):
-                if book["reviews"][i]["author"] == username:
-                    values = book["reviews"][i]
-                    values["book_title"] = book["title"]
-                    user_reviews.append(values)
+        user_reviews = get_reviews_for_user_from_books(books, username)
         user["review_count"] = len(user_reviews)
         return render_template("profile.html", user=user, reviews=user_reviews)
     except (InvalidId, TypeError):
