@@ -59,7 +59,12 @@ def set_average_rating_for_all_books(books):
     return books_average_rating
 
 
-# Home route will return recently added and top rated books
+def is_logged_in():
+    if session and session["user"]:
+        return True
+    return False
+
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -106,7 +111,7 @@ def search():
             abort(500)
 
 
-@app.route("/books/<book_id>")
+@app.route("/books/<book_id>/view")
 def get_book_by_id(book_id):
     try:
         book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
@@ -120,6 +125,10 @@ def get_book_by_id(book_id):
 
 @app.route("/book/add", methods=["POST", "GET"])
 def add_book():
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+        
     if request.method == "POST":
         try:
             new_book = {
@@ -131,7 +140,7 @@ def add_book():
                 "reviews": [],
             }
             _id = mongo.db.books.insert_one(new_book).inserted_id      
-            return redirect(f"/books/{_id}")
+            return redirect(url_for("get_book_by_id", book_id=_id))
         except:
             abort(500)
     return render_template("add_book.html")
@@ -139,6 +148,10 @@ def add_book():
 
 @app.route("/delete_book/<book_id>")
 def delete_book(book_id):
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+
     try:
         mongo.db.books.delete_one({"_id": ObjectId(book_id)})
         flash("Book Successfully Removed")
@@ -151,6 +164,10 @@ def delete_book(book_id):
 
 @app.route("/edit_book/<book_id>", methods=["GET", "POST"])
 def edit_book(book_id):
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+        
     if request.method == "POST":
         try:
             new_values = { 
@@ -178,6 +195,10 @@ def edit_book(book_id):
 
 @app.route("/add_review/<book_id>", methods=["GET", "POST"])
 def add_review(book_id):
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         try:
             book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
@@ -204,6 +225,10 @@ def add_review(book_id):
 
 @app.route("/delete_review/<book_id>/<user>")
 def delete_review(book_id, user):
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+
     try:
         mongo.db.books.update_one(
                 { "_id": ObjectId(book_id) },
@@ -219,6 +244,10 @@ def delete_review(book_id, user):
 
 @app.route("/edit_review/<book_id>", methods=["GET", "POST"])
 def edit_review(book_id):
+
+    if not is_logged_in():
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         try:
             user = session["user"]
@@ -257,6 +286,10 @@ def edit_review(book_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
+    if is_logged_in():
+        return redirect(url_for("home"))
+
     if request.method == "POST":
         try:
             existing_user = mongo.db.users.find_one(
@@ -286,6 +319,10 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
+    if is_logged_in():
+        return redirect(url_for("home"))
+
     if request.method == "POST":
         try:
             # check if username already exists in db
