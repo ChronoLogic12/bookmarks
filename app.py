@@ -128,7 +128,7 @@ def add_book():
 
     if not is_logged_in():
         return redirect(url_for("login"))
-        
+
     if request.method == "POST":
         try:
             new_book = {
@@ -146,7 +146,7 @@ def add_book():
     return render_template("add_book.html")
 
 
-@app.route("/delete_book/<book_id>")
+@app.route("/book/<book_id>/delete")
 def delete_book(book_id):
 
     if not is_logged_in():
@@ -162,7 +162,7 @@ def delete_book(book_id):
         abort(500)
 
 
-@app.route("/edit_book/<book_id>", methods=["GET", "POST"])
+@app.route("/book/<book_id>/edit", methods=["GET", "POST"])
 def edit_book(book_id):
 
     if not is_logged_in():
@@ -193,7 +193,7 @@ def edit_book(book_id):
     return render_template("edit_book.html", book=book)
 
 
-@app.route("/add_review/<book_id>", methods=["GET", "POST"])
+@app.route("/book/<book_id>/review/add", methods=["GET", "POST"])
 def add_review(book_id):
 
     if not is_logged_in():
@@ -223,13 +223,14 @@ def add_review(book_id):
     return redirect(url_for("get_book_by_id", book_id=book_id))
 
 
-@app.route("/delete_review/<book_id>/<user>")
-def delete_review(book_id, user):
+@app.route("/book/<book_id>/review/delete")
+def delete_review(book_id):
 
     if not is_logged_in():
         return redirect(url_for("login"))
 
     try:
+        user = session["user"]
         mongo.db.books.update_one(
                 { "_id": ObjectId(book_id) },
                 { "$pull": { 'reviews': { "author": user }
@@ -242,7 +243,7 @@ def delete_review(book_id, user):
         abort(500)
 
 
-@app.route("/edit_review/<book_id>", methods=["GET", "POST"])
+@app.route("/book/<book_id>/review/edit", methods=["GET", "POST"])
 def edit_review(book_id):
 
     if not is_logged_in():
