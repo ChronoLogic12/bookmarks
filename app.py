@@ -101,11 +101,11 @@ def validate_image_url(image_url):
     try:
         result = validators.url(image_url)
         if not validators.url(image_url) or isinstance(result, ValidationFailure):
-            return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+            return "https://res.cloudinary.com/chronologic12/image/upload/v1641392883/bookmarks/bookmarks-logo-placeholder_tuhbbz.svg"
         else:
             image_formats = (".png", ".jpeg", ".jpg")
             if not any(value in image_url for value in image_formats):
-                return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+                return "https://res.cloudinary.com/chronologic12/image/upload/v1641392883/bookmarks/bookmarks-logo-placeholder_tuhbbz.svg"
             else:
                 return image_url
     except requests.exceptions.Timeout:
