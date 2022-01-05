@@ -9,6 +9,16 @@ a {
 	color: inherit;
 }
 
+main {
+	min-height: 89vh;
+}
+
+.entry-page-container {
+	min-height: 89vh;
+	display: flex;
+	align-items: center;
+}
+
 .author {
 	padding: 1rem;
 }
