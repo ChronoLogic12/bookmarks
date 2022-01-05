@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- custome style sheet-->
     <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css")}}" type="text/css">
     {% block styles %}
@@ -25,7 +26,8 @@
 
     <nav class="red darken-4">
         <div class="nav-wrapper">
-            <a href="{{ url_for("home")}}"><img class="logo-image" src="/static/images/bookmarks-logo.svg"
+            <a href="{{ url_for("home")}}"><img class="logo-image"
+                    src="https://res.cloudinary.com/chronologic12/image/upload/v1641421080/bookmarks/bookmarks-logo_rpqcj5.svg"
                     alt="bookmarks logo - book with letter B on cover" /></a>
             <a href="{{ url_for("home")}}" class="brand-logo">BookMarks</a>
             <a href="#" data-target="navbar" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
