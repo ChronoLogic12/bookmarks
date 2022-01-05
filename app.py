@@ -405,7 +405,7 @@ def logout():
         # remove user from session cookie
         flash("You have been logged out")
         session.pop("user")
-        return redirect(url_for("login"))
+        return redirect(url_for("home"))
     except:
         abort(500)
 
