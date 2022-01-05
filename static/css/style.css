@@ -13,6 +13,18 @@ main {
 	min-height: 89vh;
 }
 
+.sidenav {
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+
+.logo-image {
+	height: 100%;
+	padding: 5px;
+	color: white;
+}
+
 .entry-page-container {
 	min-height: 89vh;
 	display: flex;

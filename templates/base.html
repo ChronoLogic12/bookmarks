@@ -18,12 +18,15 @@
     {% block styles %}
     {% endblock styles %}
     <title>BookMarks</title>
+    <link rel="icon" href="./static/images/bookmarks-favicon.png" type="image/png">
 </head>
 
 <body>
 
-    <nav class="red darken-2">
+    <nav class="red darken-4">
         <div class="nav-wrapper">
+            <a href="{{ url_for("home")}}"><img class="logo-image" src="/static/images/bookmarks-logo.svg"
+                    alt="bookmarks logo - book with letter B on cover" /></a>
             <a href="{{ url_for("home")}}" class="brand-logo">BookMarks</a>
             <a href="#" data-target="navbar" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
             <ul class="right hide-on-med-and-down">
