@@ -63,6 +63,10 @@ main {
 	text-transform: capitalize;
 }
 
+.collapsible-header i {
+	width: fit-content;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;
@@ -94,6 +98,21 @@ main {
 
 textarea.materialize-textarea {
 	min-height: 10rem !important;
+}
+
+/* review */
+
+.review .row {
+	margin: auto;
+}
+
+.review h5 {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.collapsible.popout > li {
+	margin: 0;
 }
 
 /* star rating: Interactive star rating made by Jordan-Simonds (https://codepen.io/jexordexan/pen/yyYEJa)
@@ -148,6 +167,10 @@ label.star:before {
 .review-count {
 	margin-top: 0rem;
 	margin-bottom: 0rem;
+}
+
+.profile .row {
+	margin: auto;
 }
 
 /* error 404 */

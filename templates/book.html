@@ -23,8 +23,8 @@
 {% endif %}
 
 <div class="row s12">
-    <div class="card horizontal row">
-        <div class=" col s3 card-image valign-wrapper">
+    <div class="card horizontal">
+        <div class="col s3 card-image valign-wrapper">
             <img src="{{ book.image_url }}" alt="{{ book.title }}">
         </div>
         <div class="card-stacked col s9">
@@ -98,14 +98,14 @@
 
 {% endif %}
 
-<ul class="row s12 collapsible popout">
+<ul class="row s12 collapsible popout review">
     {% for review in book.reviews %}
     <li>
         <div class="collapsible-header valign-wrapper">
-            <span>
-                <h5><em class="capitalize">{{ review.author }}</em></h5>
+            <span class="row s6">
+                <h5><em class="flow-text capitalize">{{ review.author }}</em></h5>
             </span>
-            <span class="col s3 offset-9">
+            <span class="row s6 offset-s6">
                 {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
@@ -119,7 +119,8 @@
             {% if (review.author == session.user) or session.user == "admin" %}
             <div class="center-align row s12 admin-controls">
                 <span><a class="btn red modal-trigger" href="#delete-review-confirmation">Delete review</a></span>
-                <span><a href="" class="btn blue">Edit review</a></span>
+                <span><a href="{{ url_for("edit_review", book_id=book._id, user=session.user)}}" class="btn blue">Edit
+                        review</a></span>
             </div>
             {% endif %}
         </div>

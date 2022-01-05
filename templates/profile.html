@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row s12">
-    <div class="card horizontal row valign-wrapper">
-        <div class="card-stacked col s9">
+<div class="row s12 profile">
+    <div class="card horizontal valign-wrapper">
+        <div class="row s6">
             <div class="card-content">
                 <h4 class="flow-text capitalize">{{ user.username }}</h4>
             </div>
         </div>
-        <div class="col s3 offset-9 center-align">
-            <p class="review-count">No. of reviews:</p>
+        <div class="row s6 offset-6 center-align card-content">
+            <p class="review-count">Number of reviews:</p>
             <h4 class="review-count">{{ user.review_count }}</h4>
         </div>
     </div>
 </div>
 
-<ul class="row s12 collapsible popout">
+<ul class="row s12 collapsible popout review">
     {% for review in reviews %}
     <li>
         <div class="collapsible-header valign-wrapper">
-            <span>
-                <h5><em>{{ review.book_title }}</em></h5>
+            <span class="row s6">
+                <h5><em class="flow-text capitalize">{{ review.book_title }}</em></h5>
             </span>
-            <span class="col s3 offset-9">
+            <span class="row s6 offset-s6">
                 {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
@@ -33,7 +33,6 @@
         </div>
         <p class="collapsible-body">{{ review.review }}</p>
     </li>
-
     {% endfor %}
 </ul>
 
