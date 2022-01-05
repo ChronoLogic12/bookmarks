@@ -8,6 +8,7 @@ from flask import (
     abort)
 from flask_pymongo import PyMongo
 from bson.objectid import (ObjectId, InvalidId)
+from validators.utils import ValidationFailure
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -97,14 +98,21 @@ def validate_image_url(image_url):
     Returns the image_url if true and a placeholder image
     if false
     """
-    if not validators.url(image_url):
-        return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
-    image_formats = ("image/png", "image/jpeg", "image/jpg")
-    r = requests.head(image_url)
-    if r.headers["content-type"] in image_formats:
-        return image_url
-    return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
-    
+    try:
+        result = validators.url(image_url)
+        if not validators.url(image_url) or isinstance(result, ValidationFailure):
+            return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+        else:
+            image_formats = (".png", ".jpeg", ".jpg")
+            if not any(value in image_url for value in image_formats):
+                return "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*"
+            else:
+                return image_url
+    except requests.exceptions.Timeout:
+        abort(404)
+    except:
+        abort(500)
+
 
 @app.route("/")
 @app.route("/home")
@@ -223,7 +231,7 @@ def edit_book(book_id):
             mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
             flash("Book Updated Successfully")
             book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
-            return render_template("book.html", book=book)
+            return redirect(url_for("get_book_by_id", book_id=book_id))
             
         except InvalidId:
             abort(404)
