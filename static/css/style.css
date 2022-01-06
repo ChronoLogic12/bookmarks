@@ -67,6 +67,10 @@ main {
 	width: fit-content;
 }
 
+.btn {
+	margin: 0.5rem;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;
@@ -198,4 +202,19 @@ label.star:before {
 
 .social-icons a {
 	font-size: 2rem;
+}
+
+/* media queries */
+
+@media only screen and (min-width: 400px) {
+	.logo-image {
+		margin-left: 1rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.logo-image {
+		margin-right: 1rem;
+		float: right;
+	}
 }
