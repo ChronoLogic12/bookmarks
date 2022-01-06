@@ -13,8 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- custome style sheet-->
+    <!-- custom style sheet-->
     <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css")}}" type="text/css">
     {% block styles %}
     {% endblock styles %}
@@ -61,7 +62,7 @@
 
     <section class="center-align container row">
         <!-- flash messages-->
-
+        <h2 class="hidden">alert messages</h2>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}

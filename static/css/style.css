@@ -71,6 +71,12 @@ main {
 	margin: 0.5rem;
 }
 
+.hidden {
+	position: absolute;
+	top: -5000px;
+	left: -5000px;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;
