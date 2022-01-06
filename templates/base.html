@@ -35,28 +35,38 @@
             <a href="{{ url_for("home")}}" class="brand-logo">BookMarks</a>
             <a href="#" data-target="navbar" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{ url_for("home")}}">Home</a></li>
-                <li><a href="{{ url_for("get_all_books")}}">Books</a></li>
+                <li {% if request.path == "/home" %} class="active" {% endif %}><a href="{{ url_for("home")}}">Home</a>
+                </li>
+                <li {% if request.path == "/books" %} class="active" {% endif %}><a
+                        href="{{ url_for("get_all_books")}}">Books</a></li>
                 {% if session.user %}
-                <li><a href="{{ url_for("profile", username=session.user)}}">Profile</a></li>
+                <li {% if request.path == "/profile" %} class="active" {% endif %}><a
+                        href="{{ url_for("profile", username=session.user)}}">Profile</a></li>
                 <li><a href="{{ url_for("logout")}}">Sign Out</a></li>
                 {% else %}
-                <li><a href="{{ url_for("login")}}">Sign In</a></li>
-                <li><a href="{{ url_for("register")}}">Register</a></li>
+                <li {% if request.path == "/login" %} class="active" {% endif %}><a href="{{ url_for("login")}}">Sign
+                        In</a>
+                </li>
+                <li {% if request.path == "/register" %} class="active" {% endif %}><a
+                        href="{{ url_for("register")}}">Register</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
 
     <ul class="sidenav" id="navbar">
-        <li><a href="{{ url_for("home")}}">Home</a></li>
-        <li><a href="{{ url_for("get_all_books")}}">Books</a></li>
+        <li {% if request.path == "/home" %} class="active" {% endif %}><a href="{{ url_for("home")}}">Home</a></li>
+        <li {% if request.path == "/books" %} class="active" {% endif %}><a
+                href="{{ url_for("get_all_books")}}">Books</a></li>
         {% if session.user %}
-        <li><a href="{{ url_for("profile", username=session.user)}}">Profile</a></li>
+        <li {% if request.path == "/profile" %} class="active" {% endif %}><a
+                href="{{ url_for("profile", username=session.user)}}">Profile</a></li>
         <li><a href="{{ url_for("logout")}}">Sign Out</a></li>
         {% else %}
-        <li><a href="{{ url_for("login")}}">Sign In</a></li>
-        <li><a href="{{ url_for("register")}}">Register</a></li>
+        <li {% if request.path == "/login" %} class="active" {% endif %}><a href="{{ url_for("login")}}">Sign In</a>
+        </li>
+        <li {% if request.path == "/register" %} class="active" {% endif %}><a
+                href="{{ url_for("register")}}">Register</a></li>
         {% endif %}
     </ul>
 
