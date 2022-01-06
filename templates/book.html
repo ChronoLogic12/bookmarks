@@ -83,7 +83,7 @@
 <div class="container row s12 m8 l6 offset-l3 offset-m2 card review-prompt">
     <div class="action-card-container">
         <div class="center-align row s12">
-            <h5 class="inline white center-align">Login to add a review</em></h5>
+            <h5 class="inline white center-align"><em>Login to add a review</em></h5>
         </div>
         <div class="center-align row s12">
             <a class="btn red darken-2 hoverable modal-trigger" href="{{ url_for("login")}}">login
@@ -103,7 +103,7 @@
     <li>
         <div class="collapsible-header valign-wrapper">
             <span class="row s6">
-                <h5><em class="flow-text capitalize">{{ review.author }}</em></h5>
+                <em class="flow-text capitalize">{{ review.author }}</em>
             </span>
             <span class="row s6 offset-s6">
                 {% for i in range(review.rating) %}
@@ -125,19 +125,17 @@
             {% endif %}
         </div>
     </li>
-
-    <!-- Delete review confirmation modal content -->
-    <div class="modal center-align" id="delete-review-confirmation">
-        <div class="modal-content">
-            <p class="flow-text">Are you sure you want to delete this review?</p>
-            <a href="{{ url_for("delete_review", book_id=book._id, user=session.user)}}"
-                class="btn-large red">Confirm</a>
-        </div>
-    </div>
-
     {% endfor %}
 
 </ul>
+
+<!-- Delete review confirmation modal content -->
+<div class="modal center-align" id="delete-review-confirmation">
+    <div class="modal-content">
+        <p class="flow-text">Are you sure you want to delete this review?</p>
+        <a href="{{ url_for("delete_review", book_id=book._id, user=session.user)}}" class="btn-large red">Confirm</a>
+    </div>
+</div>
 
 <div id="write-review" class="modal">
     <div class="modal-content white">
@@ -164,8 +162,7 @@
                     <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
                     <label class="star star-1" for="star-1"></label>
                 </div>
-                <input type="hidden" id="user" name="user" value="{{ session.user }}" </div> <div
-                    class="row center-align">
+                <input type="hidden" id="user" name="user" value="{{ session.user }}" class="row center-align">
                 <em class="capitalize"> by {{session.user}} </em>
             </div>
             <!-- submit -->
