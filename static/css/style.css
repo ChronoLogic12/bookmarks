@@ -198,6 +198,10 @@ label.star:before {
 	margin-top: 1rem;
 }
 
+.error-image {
+	width: 64px;
+}
+
 /* footer */
 
 .social-icons {
