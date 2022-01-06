@@ -64,9 +64,12 @@ def set_average_rating_for_all_books(books):
 
 def is_logged_in():
     """Return true if user is in session"""
-    if session and session["user"]:
-        return True
-    return False
+    try:
+        if session and session["user"]:
+            return True
+        return False
+    except:
+        return False
 
 
 def get_reviews_for_user_from_books(books, username):
@@ -352,7 +355,7 @@ def login():
                             flash("Welcome, {}".format(
                                 request.form.get("username")))
                             return redirect(url_for(
-                                "get_all_books", username=session["user"]))
+                                "home", username=session["user"]))
                 else:
                     # invalid password
                     flash("Incorrect Username and/or Password")
