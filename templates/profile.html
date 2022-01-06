@@ -15,14 +15,14 @@
     </div>
 </div>
 
-<ul class="row s12 collapsible popout review">
+<ul class="row collapsible popout review">
     {% for review in reviews %}
     <li>
-        <div class="collapsible-header valign-wrapper">
-            <span class="row s6">
+        <div class="collapsible-header valign-wrapper row center-align">
+            <span class="col s6">
                 <h5><em class="flow-text capitalize">{{ review.book_title }}</em></h5>
             </span>
-            <span class="row s6 offset-s6">
+            <span class="col s6">
                 {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
@@ -31,7 +31,7 @@
                 {% endfor %}
             </span>
         </div>
-        <p class="collapsible-body">{{ review.review }}</p>
+        <p class="collapsible-body row">{{ review.review }}</p>
     </li>
     {% endfor %}
 </ul>

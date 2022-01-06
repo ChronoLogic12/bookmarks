@@ -101,11 +101,11 @@
 <ul class="row s12 collapsible popout review">
     {% for review in book.reviews %}
     <li>
-        <div class="collapsible-header valign-wrapper">
-            <span class="row s6">
-                <em class="flow-text capitalize">{{ review.author }}</em>
+        <div class="collapsible-header valign-wrapper row center-align">
+            <span class="col s6">
+                <h5><em class="flow-text capitalize">{{ review.author }}</em></h5>
             </span>
-            <span class="row s6 offset-s6">
+            <span class="col s6">
                 {% for i in range(review.rating) %}
                 <span><i class="material-icons yellow-text">star</i></span>
                 {% endfor %}
@@ -119,8 +119,13 @@
             {% if (review.author == session.user) or session.user == "admin" %}
             <div class="center-align row s12 admin-controls">
                 <span><a class="btn red modal-trigger" href="#delete-review-confirmation">Delete review</a></span>
-                <span><a href="{{ url_for("edit_review", book_id=book._id, user=session.user)}}" class="btn blue">Edit
-                        review</a></span>
+                {% if session.user != "admin" %}
+                <span>
+                    <a href="{{ url_for("edit_review", book_id=book._id, user=session.user)}}" class="btn blue">Edit
+                        review
+                    </a>
+                </span>
+                {% endif %}
             </div>
             {% endif %}
         </div>
