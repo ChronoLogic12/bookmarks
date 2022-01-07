@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if session.user == "admin" %}
+{% if (session.user == "admin") or (session.user == book.added_by) %}
 <!-- delete/edit prompt -->
 <div class="container row s12 m8 l6 offset-l3 offset-m2 card hoverable">
     <div class="card-content action-card-container">
@@ -48,8 +48,10 @@
                     <span>No current ratings</span>
                     {% endif %}
                 </div>
-                <em class="flow-text">{{ book.author }}</em>
+                <em class="flow-text capitalize">{{ book.author }}</em>
                 <p>{{ book.summary }}</p>
+                <br>
+                <em class="capitalize">Book added by: {{ book.added_by }}</em>
             </div>
         </div>
     </div>
