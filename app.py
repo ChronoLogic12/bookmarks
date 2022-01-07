@@ -171,8 +171,8 @@ def get_book_by_id(book_id):
         return render_template("book.html", book=book)
     except InvalidId:
         abort(404)
-    except:
-        abort(500)
+    # except:
+    #     abort(500)
 
 
 @app.route("/book/add", methods=["POST", "GET"])
@@ -189,6 +189,7 @@ def add_book():
                 "genre": request.form.get("genre"),
                 "image_url": validate_image_url(request.form.get("image-url")),
                 "summary": request.form.get("summary"),
+                "added_by": session["user"],
                 "reviews": [],
             }
             _id = mongo.db.books.insert_one(new_book).inserted_id      
