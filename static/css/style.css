@@ -125,6 +125,13 @@ textarea.materialize-textarea {
 	margin: 0;
 }
 
+/* entry pages */
+
+.entry-option-prompt {
+	margin-top: 5rem !important;
+	margin-bottom: 0 !important;
+}
+
 /* star rating: Interactive star rating made by Jordan-Simonds (https://codepen.io/jexordexan/pen/yyYEJa)
 	modified to use material icons */
 
