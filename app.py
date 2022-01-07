@@ -171,8 +171,8 @@ def get_book_by_id(book_id):
         return render_template("book.html", book=book)
     except InvalidId:
         abort(404)
-    # except:
-    #     abort(500)
+    except:
+        abort(500)
 
 
 @app.route("/book/add", methods=["POST", "GET"])
@@ -421,12 +421,16 @@ def profile():
         return redirect(url_for("login"))
 
     try:
+        # get user info
         username = session["user"]
         user = mongo.db.users.find_one({"username": username})
+        # get all user reviews
         books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
         user_reviews = get_reviews_for_user_from_books(books, username)
         user["review_count"] = len(user_reviews)
-        return render_template("profile.html", user=user, reviews=user_reviews)
+        # get all books added by user
+        added_by_user = set_average_rating_for_all_books(list(mongo.db.books.find({"added_by": username})))
+        return render_template("profile.html", user=user, reviews=user_reviews, added_books=added_by_user)
     except (InvalidId, TypeError):
         abort(404)
     except:
