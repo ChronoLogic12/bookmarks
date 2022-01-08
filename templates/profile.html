@@ -1,79 +1,97 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row s12 profile">
-    <div class="card horizontal valign-wrapper">
-        <div class="row s6">
-            <div class="card-content">
-                <h4 class="flow-text capitalize">{{ user.username }}</h4>
+<section>
+    <div class="row s12 profile">
+        <div class="card horizontal valign-wrapper">
+            <div class="row s6">
+                <div class="card-content">
+                    <h4 class="flow-text capitalize">{{ user.username }}</h4>
+                </div>
+            </div>
+            <div class="row s6 offset-6 center-align card-content">
+                <p class="review-count">Number of reviews:</p>
+                <h4 class="review-count">{{ user.review_count }}</h4>
             </div>
         </div>
-        <div class="row s6 offset-6 center-align card-content">
-            <p class="review-count">Number of reviews:</p>
-            <h4 class="review-count">{{ user.review_count }}</h4>
+    </div>
+</section>
+
+<section>
+    <div class="container row s12 m8 l6 offset-l3 offset-m2 center-align card red darken-4 section-header">
+        <div class="card-content white-text">
+            <h5>User Reviews</h5>
         </div>
     </div>
-</div>
 
-<ul class="row collapsible popout review">
-    {% for review in reviews %}
-    <li>
-        <div class="collapsible-header valign-wrapper row center-align">
-            <span class="col s6">
-                <h5><em class="flow-text capitalize">{{ review.book_title }}</em></h5>
-            </span>
-            <span class="col s6">
-                {% for i in range(review.rating) %}
-                <span><i class="material-icons yellow-text">star</i></span>
-                {% endfor %}
-                {% for i in range(5 - review.rating) %}
-                <span><i class="material-icons grey-text">star_border</i></span>
-                {% endfor %}
-            </span>
-        </div>
-        <p class="collapsible-body row">{{ review.review }}</p>
-    </li>
-    {% endfor %}
-</ul>
-
-<!-- preview card for each book-->
-{% if added_books|length > 0 %}
-
-{% for book in added_books %}
-
-<a href="{{ url_for("get_book_by_id", book_id=book._id)}}" class="col s12 l6">
-    <div class="card book-preview horizontal hoverable">
-        <div class="col s3 card-image valign-wrapper">
-            <img src="{{ book.image_url }}" alt="{{ book.title }}">
-        </div>
-        <div class="card-stacked col s9">
-            <div class="card-content">
-                <h4 class="flow-text">{{ book.title }}</h4>
-                <div>
-                    {% if book.avg_rating %}
-                    <!--add a number of filled stars equal to the raded value of the average rating-->
-                    {% for i in range(book.avg_rating|round|int) %}
+    <ul class="row collapsible popout review">
+        {% for review in reviews %}
+        <li>
+            <div class="collapsible-header valign-wrapper row center-align">
+                <span class="col s6">
+                    <h5><em class="flow-text capitalize">{{ review.book_title }}</em></h5>
+                </span>
+                <span class="col s6">
+                    {% for i in range(review.rating) %}
                     <span><i class="material-icons yellow-text">star</i></span>
                     {% endfor %}
-                    <!--add a number of empty stars equal to make a total of 5-->
-                    {% for i in range(5 - book.avg_rating|round|int) %}
+                    {% for i in range(5 - review.rating) %}
                     <span><i class="material-icons grey-text">star_border</i></span>
                     {% endfor %}
-                    <span>{{ book.avg_rating }}/5</span>
-                    <!--display if there are currently no ratings for this book-->
-                    {% else %}
-                    <span><i class="material-icons grey-text">star_border</i></span>
-                    <span>No current ratings</span>
-                    {% endif %}
-                </div>
-                <em class="flow-text">{{ book.author }}</em>
-                <p class="truncate">{{ book.summary }}</p>
+                </span>
             </div>
+            <p class="collapsible-body row">{{ review.review }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <div class="container row s12 m8 l6 offset-l3 offset-m2 center-align card red darken-4 section-header">
+        <div class="card-content white-text">
+            <h5>Added Books</h5>
         </div>
     </div>
-</a>
-{% endfor %}
 
-{% endif %}
+    <!-- preview card for each book-->
+    {% if added_books|length > 0 %}
+
+    {% for book in added_books %}
+
+    <a href="{{ url_for("get_book_by_id", book_id=book._id)}}" class="col s12 l6">
+        <div class="card book-preview horizontal hoverable">
+            <div class="col s3 card-image valign-wrapper">
+                <img src="{{ book.image_url }}" alt="{{ book.title }}">
+            </div>
+            <div class="card-stacked col s9">
+                <div class="card-content">
+                    <h4 class="flow-text">{{ book.title }}</h4>
+                    <div>
+                        {% if book.avg_rating %}
+                        <!--add a number of filled stars equal to the raded value of the average rating-->
+                        {% for i in range(book.avg_rating|round|int) %}
+                        <span><i class="material-icons yellow-text">star</i></span>
+                        {% endfor %}
+                        <!--add a number of empty stars equal to make a total of 5-->
+                        {% for i in range(5 - book.avg_rating|round|int) %}
+                        <span><i class="material-icons grey-text">star_border</i></span>
+                        {% endfor %}
+                        <span>{{ book.avg_rating }}/5</span>
+                        <!--display if there are currently no ratings for this book-->
+                        {% else %}
+                        <span><i class="material-icons grey-text">star_border</i></span>
+                        <span>No current ratings</span>
+                        {% endif %}
+                    </div>
+                    <em class="flow-text">{{ book.author }}</em>
+                    <p class="truncate">{{ book.summary }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+
+    {% endif %}
+</section>
 
 {% endblock content %}
