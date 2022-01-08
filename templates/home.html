@@ -12,35 +12,33 @@
     <div class="row">
         {% for book in books %}
 
-        <a href="{{ url_for("get_book_by_id", book_id=book._id)}}">
-            <div class="col s12 l6">
-                <div class="card book-preview horizontal hoverable row">
-                    <div class="col s3 card-image valign-wrapper">
-                        <img src="{{ book.image_url }}" alt="{{ book.title }}">
-                    </div>
-                    <div class="card-stacked col s9">
-                        <div class="card-content">
-                            <h4 class="flow-text">{{ book.title }}</h4>
-                            <div>
-                                {% if book.avg_rating %}
-                                <!--add a number of filled stars equal to the raded value of the average rating-->
-                                {% for i in range(book.avg_rating|round|int) %}
-                                <span><i class="material-icons yellow-text">star</i></span>
-                                {% endfor %}
-                                <!--add a number of empty stars equal to make a total of 5-->
-                                {% for i in range(5 - book.avg_rating|round|int) %}
-                                <span><i class="material-icons grey-text">star_border</i></span>
-                                {% endfor %}
-                                <span>{{ book.avg_rating }}/5</span>
-                                <!--display if there are currently no ratings for this book-->
-                                {% else %}
-                                <span><i class="material-icons grey-text">star_border</i></span>
-                                <span>No current ratings</span>
-                                {% endif %}
-                            </div>
-                            <em class="flow-text">{{ book.author }}</em>
-                            <p class="truncate">{{ book.summary }}</p>
+        <a href="{{ url_for("get_book_by_id", book_id=book._id)}}" class="col s12 l6">
+            <div class="card book-preview horizontal hoverable">
+                <div class="col s3 card-image valign-wrapper">
+                    <img src="{{ book.image_url }}" alt="{{ book.title }}">
+                </div>
+                <div class="card-stacked col s9">
+                    <div class="card-content">
+                        <h4 class="flow-text">{{ book.title }}</h4>
+                        <div>
+                            {% if book.avg_rating %}
+                            <!--add a number of filled stars equal to the raded value of the average rating-->
+                            {% for i in range(book.avg_rating|round|int) %}
+                            <span><i class="material-icons yellow-text">star</i></span>
+                            {% endfor %}
+                            <!--add a number of empty stars equal to make a total of 5-->
+                            {% for i in range(5 - book.avg_rating|round|int) %}
+                            <span><i class="material-icons grey-text">star_border</i></span>
+                            {% endfor %}
+                            <span>{{ book.avg_rating }}/5</span>
+                            <!--display if there are currently no ratings for this book-->
+                            {% else %}
+                            <span><i class="material-icons grey-text">star_border</i></span>
+                            <span>No current ratings</span>
+                            {% endif %}
                         </div>
+                        <em class="flow-text">{{ book.author }}</em>
+                        <p class="truncate">{{ book.summary }}</p>
                     </div>
                 </div>
             </div>
