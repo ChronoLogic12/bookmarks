@@ -121,9 +121,20 @@ def validate_image_url(image_url):
 @app.route("/home")
 def home():
     try:
+        # find and order all books by their average rating
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         books.sort(key=lambda book: book["avg_rating"], reverse=True)
-        return render_template("home.html", books=books[:6])
+        editors_pick_one = {
+            "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61cd82c913fe8666a4ed0241")})),
+            "picked_by": "test text",
+            "editors_comments": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+        editors_pick_two = {
+            "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61d88ec47936d37650e0f904")})),
+            "picked_by": "Chronologic",
+            "editors_comments": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+        return render_template("home.html", books=books[:6], editors_pick_one=editors_pick_one, editors_pick_two=editors_pick_two)
     except:
         abort(500)
 
