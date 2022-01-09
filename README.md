@@ -3,17 +3,17 @@
 ### Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development
 
 <p align="center">
-    <img src="" width="200px"/>
+    <img src="readme-assets\bookmarks-logo.png" width="200px"/>
 </p>
 
 ## **About BookMarks**
 
-BookMarks in an online book review site where users can share their opinions on books the have read and search for their next great read. Whether you love pipe smoking detectives and rainy cities, plucky farm animals banding together to save the day or even action packed battles in space; Share the books that you love with BookMarks. Give you marks and share your review with the community to help others to hear about your top reads and find your next all time favorite.
+BookMarks in an online book review site where users can share their opinions on books the have read and search for their next great read. Whether you love pipe smoking detectives and rainy cities, plucky farm animals banding together to save the day or even action packed battles in space; Share the books that you love with BookMarks. Give your marks and share your review with the community to help others to hear about your top reads and find your next all time favorite.
 
-[BookMarks - Live site]()
+[BookMarks - Live site](https://bookmarks-flask-app.herokuapp.com/home)
 
 <p align="center">
-    <img src="" width="1200px"/>
+    <img src="readme-assets\responsive1.PNG" width="1200px"/>
 </p>
 
 ## **Table of contents**
@@ -65,6 +65,12 @@ The aim of this project is to produce a website that allows book lovers to rate 
 - Edit the details of a book
 - Delete a book
 - Delete a user review (potentially offensive content)
+
+### Wireframes
+
+- [Mobile](readme-assets\bookmarks-wireframe-tablet.png)
+- [Tablet](readme-assets\bookmarks-wireframe-mobile.png)
+- [Desktop](readme-assets\bookmarks-wireframe-desktop.png)
 
 ## Testing
 
