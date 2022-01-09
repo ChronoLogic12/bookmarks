@@ -40,22 +40,24 @@ The aim of this project is to produce a website that allows book lovers to rate 
 
 #### As a regular user of this site I want to be able to -
 
-- Log in to my account
-- Log out of my account
-- Write and post reviews based on books I have read
-- View all reviews I have posted
-- Edit reviews that I have posted
-- Delete reviews that I have posted
-- View reviews other people have written
+- Find and learn about new books
 - Find a books average rating
 - Search for books by parameters such as title, author and genre
 - Find the currently highest rated books
+- Add books to the site
+- Write and post reviews for books
+- View all reviews I have posted
+- Edit/delete reviews that I have posted
+- View reviews other people have written
+- Edit/delete books I have added
+- Log in to my account
+- Log out of my account
 
 #### As a first time visiter to this site I want to be able to -
 
 - Easily understand the purpose of the site
+- Learn about specific books
 - View reviews other people have written
-- Find a books average rating
 - Create an account
 
 #### As an admin of this site I want to be able to -
@@ -71,6 +73,50 @@ The aim of this project is to produce a website that allows book lovers to rate 
 - [Mobile](readme-assets\bookmarks-wireframe-tablet.png)
 - [Tablet](readme-assets\bookmarks-wireframe-mobile.png)
 - [Desktop](readme-assets\bookmarks-wireframe-desktop.png)
+
+## **Features**
+
+- Navigation
+
+The sites navigation section is located at the top of all pages. This section contains the BookMarks brand name and logo as well as the page navigation controls for larger displays
+
+<p align="center">
+    <img src="readme-assets\nav-desktop.PNG" width="1200px"/>
+</p>
+or an expandable navigation sidebar for these controls for smaller screens. 
+<p align="center">
+    <img src="readme-assets\nav-mobile.PNG" width="600px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\nav-mobile-sidebar.PNG" width="80px"/>
+</p>
+Nav controls responsively employ materializes active styling to indicate to the user the current page.
+
+- Footer
+
+The footer section is located at the bottom of all pages and contains a copyright statement and links to facebook, instagram and twitter.
+
+<p align="center">
+    <img src="readme-assets\footer.PNG" width="500px"/>
+</p>
+
+### Home
+
+- Top rated books
+
+The first section of the sites home page is dedicated to the books with the highest current average ratings. This section displays book previews for the six highest rated books containing basic info on the book including title, author and average rating. Each preview acts as a link which will take the user to the books details page where they can find further details and review for the title.
+
+<p align="center">
+    <img src="readme-assets\home-top-rated.PNG" width="500px"/>
+</p>
+
+- Editors Picks
+
+The editors pick section of the home page contains short write ups on some of the favorite picks of site editors, encouraging users to check out certain titles and engage with the community. Each write up also contains a preview card/link to direct the user to the books details page.
+
+<p align="center">
+    <img src="" width="500px"/>
+</p>
 
 ## Testing
 
