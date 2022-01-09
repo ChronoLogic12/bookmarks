@@ -85,27 +85,30 @@ The sites navigation section is located at the top of all pages. This section co
 </p>
 or an expandable navigation sidebar for these controls for smaller screens. 
 <p align="center">
-    <img src="readme-assets\nav-mobile.PNG" width="600px"/>
+    <img src="readme-assets\nav-mobile.PNG" width="700px"/>
 </p>
 <p align="center">
-    <img src="readme-assets\nav-mobile-sidebar.PNG" width="80px"/>
+    <img src="readme-assets\nav-mobile-sidebar.PNG" width="100px"/>
 </p>
 Nav controls responsively employ materializes active styling to indicate to the user the current page.
+
+1. When logged in the page links are as follows: Home - Books - Profile - Sign Out.
+2. When logged out the page links are as follows: Home - Books - Sign In - Register.
 
 - Footer
 
 The footer section is located at the bottom of all pages and contains a copyright statement and links to facebook, instagram and twitter.
 
 <p align="center">
-    <img src="readme-assets\footer.PNG" width="500px"/>
+    <img src="readme-assets\footer.PNG" width="600px"/>
 </p>
 
-- Book preview cards/links
+### Book preview cards/links
 
 Throughout the site book previews are displayed as cards containing the books basic info such as title, author and average rating as well as the books cover art. Preview cards also function as links to that books details page where they can find further details and review for the title. These preview cards are displayed in one or two column grids depending on the users screen size and site section.
 
 <p align="center">
-    <img src="readme-assets\book-preview-card.PNG" width="300px"/>
+    <img src="readme-assets\book-preview-card.PNG" width="400px"/>
 </p>
 
 ### Home
@@ -115,7 +118,7 @@ Throughout the site book previews are displayed as cards containing the books ba
 The first section of the sites home page is dedicated to the books with the highest current average ratings. This section displays book previews for the current six highest rated books.
 
 <p align="center">
-    <img src="readme-assets\home-top-rated.PNG" width="500px"/>
+    <img src="readme-assets\home-top-rated.PNG" width="600px"/>
 </p>
 
 - Editors Picks
@@ -123,7 +126,7 @@ The first section of the sites home page is dedicated to the books with the high
 The editors pick section of the home page contains short write ups on some of the favorite picks of site editors, encouraging users to check out certain titles and engage with the community. Each write up also contains a preview card to direct the user to the books details page.
 
 <p align="center">
-    <img src="" width="500px"/>
+    <img src="" width="600px"/>
 </p>
 
 ### Books
@@ -135,7 +138,7 @@ The books page displays book preview cards for all books
 When logged in the books page will display a prompt to the user to add a new book at the top of the page. See - [Add a book](#add-a-book)
 
 <p align="center">
-    <img src="readme-assets\add-book-prompt.PNG" width="300px"/>
+    <img src="readme-assets\add-book-prompt.PNG" width="500px"/>
 </p>
 
 - Search
@@ -143,7 +146,7 @@ When logged in the books page will display a prompt to the user to add a new boo
 The search bar at the top of the books page allows the user to sort all books by designating a search term. The page will then display any books that contain matches to the designated term in the 'title', 'author', 'summary' or 'genre' fields.
 
 <p align="center">
-    <img src="readme-assets\search.PNG" width="350px"/>
+    <img src="readme-assets\search.PNG" width="450px"/>
 </p>
 
 ### Add a book
@@ -151,7 +154,7 @@ The search bar at the top of the books page allows the user to sort all books by
 When selecting the add book button from the books page you are directed to a form to input the details of the new title. The form requires the user to input the books title, author, genre, summary and provide an image url before submitting this information to the database. If an invalid image url is given a placeholder image will replace the invalid value.
 
 <p align="center">
-    <img src="readme-assets\add-book-form.PNG" width="500px"/>
+    <img src="readme-assets\add-book-form.PNG" width="600px"/>
 </p>
 
 ### book<book_id> (book details)
@@ -163,13 +166,13 @@ Each book has it's own unique page containing all it's information, user reviews
 If there is a user in session and that user is either the one that added the current book or the site admin a card containing edit and delete buttons will be displayed at the top of the page.
 
 <p align="center">
-    <img src="readme-assets\book-edit-delete-controls.PNG" width="500px"/>
+    <img src="readme-assets\book-edit-delete-controls.PNG" width="600px"/>
 </p>
 
 Selecting the delete book button will open a modal asking the user to confirm the books deletion.
 
 <p align="center">
-    <img src="readme-assets\delete-book-confirmation.PNG" width="400px"/>
+    <img src="readme-assets\delete-book-confirmation.PNG" width="500px"/>
 </p>
 
 Selecting delete will remove the book and all reviews from the database. Selecting cancel will close the modal.
@@ -181,19 +184,19 @@ Selecting Edit book will direct the user to the edit book page. See - [Edit book
 The main section of the page contains the books details. This section is similar to the book preview cards but displays the books full description and the name of the user that added the book.
 
 <p align="center">
-    <img src="readme-assets\book-details.PNG" width="600px"/>
+    <img src="readme-assets\book-details.PNG" width="700px"/>
 </p>
 
 If the current user is **not logged in**, a prompt will render under the book details card directing them to login or register to add a review to the book.
 
 <p align="center">
-    <img src="readme-assets\login-register-prompt.PNG" width="400px"/>
+    <img src="readme-assets\login-register-prompt.PNG" width="500px"/>
 </p>
 
-If there **is** a user in session and they have **not** previously submitted a review for the current book a prompt will render directing them to add a review. see - [Add a review](#add-review)
+If there **is** a user in session and they have **not** previously submitted a review for the current book a prompt will render directing them to add a review. see - [Add a review](#add-a-review)
 
 <p align="center">
-    <img src="readme-assets\add-review-prompt.PNG" width="400px"/>
+    <img src="readme-assets\add-review-prompt.PNG" width="500px"/>
 </p>
 
 - Reviews
@@ -201,32 +204,66 @@ If there **is** a user in session and they have **not** previously submitted a r
 Reviews are rendered in a series of cards each containing the name of the user that wrote it and the star rating they gave. Clicking on the card causes it to expand and reveal the review in full. Only one card may be open at a time.
 
 <p align="center">
-    <img src="readme-assets\review-closed.PNG" width="500px"/>
+    <img src="readme-assets\review-closed.PNG" width="600px"/>
 </p>
 <p align="center">
-    <img src="readme-assets\review-open.PNG" width="500px"/>
+    <img src="readme-assets\review-open.PNG" width="600px"/>
 </p>
 
 If the user viewing a review is in session and the one who submitted it they will also be presented with options to either delete or edit their review. If the current user is the site admin they will have access to only the delete review control.
 
 <p align="center">
-    <img src="readme-assets\review-open-with-controls.PNG" width="500px"/>
+    <img src="readme-assets\review-open-with-controls.PNG" width="600px"/>
 </p>
 <p align="center">
-    <img src="readme-assets\review-open-admin-controls.PNG" width="500px"/>
+    <img src="readme-assets\review-open-admin-controls.PNG" width="600px"/>
 </p>
 
 Selecting the delete review button will open a modal asking the user to confirm the books deletion.
 
 <p align="center">
-    <img src="readme-assets\delete-review-confirmation.PNG" width="400px"/>
+    <img src="readme-assets\delete-review-confirmation.PNG" width="500px"/>
 </p>
 
 Selecting delete will remove the review from the database. Selecting cancel will close the modal.
 
 Selecting edit review will direct the user to the edit review page. See - [Edit review](#edit-review)
 
-### Add review
+- Add a review
+
+Clicking the 'Add a review' button from a books details page will open a modal presenting the user with a form to input the details of their review. This form consists of a text box for the body of the review and a 5 star rating selector.
+
+<p align="center">
+    <img src="readme-assets\add-review.PNG" width="500px"/>
+</p>
+
+The star rating selector was adapted from [This code](https://codepen.io/jexordexan/pen/yyYEJa) written by Jordan-Simonds. It is highly tactile, interactive and pleasant to use.
+
+<p align="center">
+    <img src="readme-assets\star-ratings.gif" width="500px"/>
+</p>
+
+Submitting the form will update the current book details page and display the new review.
+
+### Edit book
+
+- Selecting to edit a book will direct the user to form identical to the add book form but pre filled with the books current information. The user is free to make any edits they like then re submit the book updating the database.
+
+<p align="center">
+    <img src="readme-assets\edit-book.PNG" width="500px"/>
+</p>
+
+### Edit review
+
+- Selecting to edit a review will direct the user to form identical to the add review form but pre filled with the review current information. The user is free to make any edits they like then re submit the review updating the database.
+
+<p align="center">
+    <img src="readme-assets\edit-review.PNG" width="500px"/>
+</p>
+
+### Profile
+
+### Entry
 
 ## Testing
 
