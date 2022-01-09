@@ -100,11 +100,19 @@ The footer section is located at the bottom of all pages and contains a copyrigh
     <img src="readme-assets\footer.PNG" width="500px"/>
 </p>
 
+- Book preview cards/links
+
+Throughout the site book previews are displayed as cards containing the books basic info such as title, author and average rating as well as the books cover art. Preview cards also function as links to that books details page where they can find further details and review for the title. These preview cards are displayed in one or two column grids depending on the users screen size and site section.
+
+<p align="center">
+    <img src="readme-assets\book-preview-card.PNG" width="300px"/>
+</p>
+
 ### Home
 
 - Top rated books
 
-The first section of the sites home page is dedicated to the books with the highest current average ratings. This section displays book previews for the six highest rated books containing basic info on the book including title, author and average rating. Each preview acts as a link which will take the user to the books details page where they can find further details and review for the title.
+The first section of the sites home page is dedicated to the books with the highest current average ratings. This section displays book previews for the current six highest rated books.
 
 <p align="center">
     <img src="readme-assets\home-top-rated.PNG" width="500px"/>
@@ -112,7 +120,7 @@ The first section of the sites home page is dedicated to the books with the high
 
 - Editors Picks
 
-The editors pick section of the home page contains short write ups on some of the favorite picks of site editors, encouraging users to check out certain titles and engage with the community. Each write up also contains a preview card/link to direct the user to the books details page.
+The editors pick section of the home page contains short write ups on some of the favorite picks of site editors, encouraging users to check out certain titles and engage with the community. Each write up also contains a preview card to direct the user to the books details page.
 
 <p align="center">
     <img src="" width="500px"/>
