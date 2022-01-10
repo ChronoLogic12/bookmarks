@@ -1,7 +1,5 @@
 # **BookMarks** - Book reviews and recommendations
 
-### Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development
-
 <p align="center">
     <img src="readme-assets\bookmarks-logo.png" width="200px"/>
 </p>
@@ -19,7 +17,6 @@ BookMarks in an online book review site where users can share their opinions on 
 ## **Table of contents**
 
 - [**BookMarks** - Book reviews and recommendations](#bookmarks---book-reviews-and-recommendations)
-  - [Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development](#code-institute-milestone-project-3-htmlcssjavascriptpythonflaskmongodb---python-and-data-centric-development)
   - [**About BookMarks**](#about-bookmarks)
   - [**Table of contents**](#table-of-contents)
   - [**UX design**](#ux-design)
@@ -43,6 +40,7 @@ BookMarks in an online book review site where users can share their opinions on 
     - [Edit review](#edit-review)
     - [Profile](#profile)
     - [Entry](#entry)
+    - [Error pages](#error-pages)
   - [Testing](#testing)
   - [Deployment](#deployment)
     - [Heroku](#heroku)
@@ -342,6 +340,17 @@ The register page is similar in layout to the login page but the main form is to
     <img src="readme-assets\register.PNG" width="500px"/>
 </p>
 
+### Error pages
+
+Site site uses custom error 404 and 500 pages which direct the user back to the site homepage without using browser controls.
+
+<p align="center">
+    <img src="readme-assets\error404.PNG" width="150px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\error500.PNG" width="250px"/>
+</p>
+
 ## Testing
 
 For full testing documentation please see [TESTING.md](TESTING.md)
@@ -358,7 +367,14 @@ This project was deployed using Heroku
 
 ### Content
 
+- [Materialize](https://materializecss.com/) was used throughout site for layout, interactive components, element styling, colours and icons.
+- [Google fonts](https://fonts.google.com/) was used to link used fonts.
+- [Font Awesome](https://fontawesome.com/) was user for social icons in the site footer.
+
 ### Media
+
+- All brand artwork was created by me with use of Adobe [Photoshop](https://www.adobe.com/uk/products/photoshop.html) and [Illustrator](https://www.adobe.com/uk/products/illustrator.html)
+- All images are served to the site [Cloudinary](https://cloudinary.com/console/c-087b7b36d5737750ed37ab5fb60479/getting-started) CDN for improved performance.
 
 ### Help and info
 
@@ -368,3 +384,5 @@ This project was deployed using Heroku
   - [MND Web Docs](https://developer.mozilla.org/en-US/) - general knowledge.
   - [Stack Overflow](https://stackoverflow.com/) - debugging.
   - Interactive star rating element adapted from [the work of Jordan-Simonds(jexordexan)](https://codepen.io/jexordexan/pen/yyYEJa)
+  - [Flask documentation](https://flask.palletsprojects.com/en/2.0.x/)
+  - [Jinja documentation](https://jinja.palletsprojects.com/en/3.0.x/)
