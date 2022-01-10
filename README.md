@@ -1,7 +1,5 @@
 # **BookMarks** - Book reviews and recommendations
 
-### Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development
-
 <p align="center">
     <img src="readme-assets\bookmarks-logo.png" width="200px"/>
 </p>
@@ -19,7 +17,6 @@ BookMarks in an online book review site where users can share their opinions on 
 ## **Table of contents**
 
 - [**BookMarks** - Book reviews and recommendations](#bookmarks---book-reviews-and-recommendations)
-  - [Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development](#code-institute-milestone-project-3-htmlcssjavascriptpythonflaskmongodb---python-and-data-centric-development)
   - [**About BookMarks**](#about-bookmarks)
   - [**Table of contents**](#table-of-contents)
   - [**UX design**](#ux-design)
@@ -43,6 +40,7 @@ BookMarks in an online book review site where users can share their opinions on 
     - [Edit review](#edit-review)
     - [Profile](#profile)
     - [Entry](#entry)
+    - [Error pages](#error-pages)
   - [Testing](#testing)
   - [Deployment](#deployment)
     - [Heroku](#heroku)
@@ -342,6 +340,17 @@ The register page is similar in layout to the login page but the main form is to
     <img src="readme-assets\register.PNG" width="500px"/>
 </p>
 
+### Error pages
+
+Site site uses custom error 404 and 500 pages which direct the user back to the site homepage without using browser controls.
+
+<p align="center">
+    <img src="readme-assets\error404.PNG" width="150px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\error500.PNG" width="250px"/>
+</p>
+
 ## Testing
 
 For full testing documentation please see [TESTING.md](TESTING.md)
@@ -357,6 +366,10 @@ This project was deployed using Heroku
 ## Credits
 
 ### Content
+
+- [Materialize](https://materializecss.com/)
+- [Google fonts](https://fonts.google.com/)
+- [Font Awesome](https://fontawesome.com/)
 
 ### Media
 
