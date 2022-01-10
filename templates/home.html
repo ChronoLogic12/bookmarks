@@ -56,45 +56,46 @@
         </div>
     </div>
 
-    <!-- editors pick one -->
+    <!-- editors picks -->
+    {% for book in editors_choices %}
     <article>
         <div class="col s12">
             <div class="center">
-                <h4 class="capitalize">{{ editors_pick_one.book.title }} by {{ editors_pick_one.book.author }}</h4>
-                <h6 class="capitalize">Picked by: {{ editors_pick_one.picked_by }}</h6>
-                <em class="capitalize">Genre: {{ editors_pick_one.book.genre }}</em>
-                <p class="flow-text">{{ editors_pick_one.editors_comments }}</p>
+                <h4 class="capitalize">{{ book.title }} by {{ book.author }}</h4>
+                <h6 class="capitalize">Picked by: {{ book.editors_choice_data.picked_by }}</h6>
+                <em class="capitalize">Genre: {{ book.genre }}</em>
+                <p class="flow-text">{{ book.editors_choice_data.editors_comments }}</p>
             </div>
         </div>
 
-        <a href="{{ url_for("get_book_by_id", book_id=editors_pick_one.book._id)}}">
+        <a href="{{ url_for("get_book_by_id", book_id=book._id)}}">
             <div class="col s12 l6 offset-l3">
                 <div class="card book-preview horizontal hoverable row">
                     <div class="col s3 card-image valign-wrapper">
-                        <img src="{{ editors_pick_one.book.image_url }}" alt="{{ editors_pick_one.book.title }}">
+                        <img src="{{ book.image_url }}" alt="{{ book.title }}">
                     </div>
                     <div class="card-stacked col s9">
                         <div class="card-content">
-                            <h4 class="flow-text">{{ editors_pick_one.book.title }}</h4>
+                            <h4 class="flow-text">{{ book.title }}</h4>
                             <div>
-                                {% if editors_pick_one.book.avg_rating %}
+                                {% if book.avg_rating %}
                                 <!--add a number of filled stars equal to the raded value of the average rating-->
-                                {% for i in range(editors_pick_one.book.avg_rating|round|int) %}
+                                {% for i in range(book.avg_rating|round|int) %}
                                 <span><i class="material-icons yellow-text">star</i></span>
                                 {% endfor %}
                                 <!--add a number of empty stars equal to make a total of 5-->
-                                {% for i in range(5 - editors_pick_one.book.avg_rating|round|int) %}
+                                {% for i in range(5 - book.avg_rating|round|int) %}
                                 <span><i class="material-icons grey-text">star_border</i></span>
                                 {% endfor %}
-                                <span>{{ editors_pick_one.book.avg_rating }}/5</span>
+                                <span>{{ book.avg_rating }}/5</span>
                                 <!--display if there are currently no ratings for this book-->
                                 {% else %}
                                 <span><i class="material-icons grey-text">star_border</i></span>
                                 <span>No current ratings</span>
                                 {% endif %}
                             </div>
-                            <em class="flow-text">{{ editors_pick_one.book.author }}</em>
-                            <p class="truncate">{{ editors_pick_one.book.summary }}</p>
+                            <em class="flow-text">{{ book.author }}</em>
+                            <p class="truncate">{{ book.summary }}</p>
                         </div>
                     </div>
                 </div>
@@ -106,51 +107,8 @@
         <hr>
     </div>
 
-    <!-- editors pick two -->
-    <article>
-        <div class="col s12">
-            <div class="center">
-                <h4 class="capitalize">{{ editors_pick_two.book.title }} by {{ editors_pick_two.book.author }}</h4>
-                <h6 class="capitalize">Picked by: {{ editors_pick_two.picked_by }}</h6>
-                <em class="capitalize">Genre: {{ editors_pick_two.book.genre }}</em>
-                <p class="flow-text">{{ editors_pick_two.editors_comments }}</p>
-            </div>
-        </div>
+    {% endfor %}
 
-        <a href="{{ url_for("get_book_by_id", book_id=editors_pick_two.book._id)}}">
-            <div class="col s12 l6 offset-l3">
-                <div class="card book-preview horizontal hoverable row">
-                    <div class="col s3 card-image valign-wrapper">
-                        <img src="{{ editors_pick_two.book.image_url }}" alt="{{ editors_pick_two.book.title }}">
-                    </div>
-                    <div class="card-stacked col s9">
-                        <div class="card-content">
-                            <h4 class="flow-text">{{ editors_pick_two.book.title }}</h4>
-                            <div>
-                                {% if editors_pick_two.book.avg_rating %}
-                                <!--add a number of filled stars equal to the raded value of the average rating-->
-                                {% for i in range(editors_pick_two.book.avg_rating|round|int) %}
-                                <span><i class="material-icons yellow-text">star</i></span>
-                                {% endfor %}
-                                <!--add a number of empty stars equal to make a total of 5-->
-                                {% for i in range(5 - editors_pick_two.book.avg_rating|round|int) %}
-                                <span><i class="material-icons grey-text">star_border</i></span>
-                                {% endfor %}
-                                <span>{{ editors_pick_two.book.avg_rating }}/5</span>
-                                <!--display if there are currently no ratings for this book-->
-                                {% else %}
-                                <span><i class="material-icons grey-text">star_border</i></span>
-                                <span>No current ratings</span>
-                                {% endif %}
-                            </div>
-                            <em class="flow-text">{{ editors_pick_two.book.author }}</em>
-                            <p class="truncate">{{ editors_pick_two.book.summary }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </article>
 </section>
 
 {% endblock content %}

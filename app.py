@@ -96,7 +96,7 @@ def validate_image_url(image_url):
     """
     Takes a string and checks if it is a valid image url.
     Returns the image_url if true and a placeholder image
-    if false
+    if false.
     """
     try:
         result = validators.url(image_url)
@@ -110,7 +110,23 @@ def validate_image_url(image_url):
                 return image_url
     except requests.exceptions.Timeout:
         abort(404)
-    except:
+    except (SystemError, ValueError, TypeError):
+        abort(500)
+
+
+def filter_editor_choices_from_books(books_list):
+    """
+    Takes a list of book objects and returns a modified 
+    list containing any books with truthy editors_choice_data
+    values.
+    """
+    try:
+        editors_choice_books = []
+        for book in books_list:
+            if book["editors_choice"]:
+                editors_choice_books.append(book)
+        return editors_choice_books
+    except (SystemError, ValueError, TypeError, AttributeError):
         abort(500)
 
 
@@ -121,18 +137,8 @@ def home():
         # find and order all books by their average rating
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         books.sort(key=lambda book: book["avg_rating"], reverse=True)
-        editors_pick_one = {
-            "book": set_average_rating(mongo.db.books.find_one(
-                {"_id": ObjectId("61cd82c913fe8666a4ed0241")})),
-            "picked_by": "Chronologic",
-            "editors_comments": "The first book in Michelle pavers 'Chronicles of Ancient Darkness' series, Wolf brother represents the YA fantasy genre at it's finest. Follow the young hunter Torak and his companion Wolf they fight to survive in a stone age world deep with magic and spirits after the tragic death of Toraks farther at the hands of a deamon bear. With deep characters, a vast and intriguing world and a driving plot, Wolf brother is a must for readers of all ages."
-        }
-        editors_pick_two = {
-            "book": set_average_rating(mongo.db.books.find_one({"_id": ObjectId("61d88ec47936d37650e0f904")})),
-            "picked_by": "Chronologic",
-            "editors_comments": "John Green takes a step away from young adult fiction to bring us this incredibly insightful and compelling look into the world of The Anthropocene. For those who may not know, the anthropocene refers to the current era of history and this book offers a guided tour of a human centered world. John explores and rates things from the QWERTY keyboard to Halley's commet on a 5 star scale. With charming anecdotes, fantastic prose and a wonderful audiobook version narated by the author himself, this book is a must read for all."
-        }
-        return render_template("home.html", books=books[:6], editors_pick_one=editors_pick_one, editors_pick_two=editors_pick_two)
+        editors_choices = filter_editor_choices_from_books(books)
+        return render_template("home.html", books=books[:6], editors_choices=editors_choices)
     except (SystemError, ValueError, TypeError):
         abort(500)
 
@@ -200,6 +206,7 @@ def add_book():
                 "summary": request.form.get("summary"),
                 "added_by": session["user"],
                 "reviews": [],
+                "editors_choice": False,
             }
             _id = mongo.db.books.insert_one(new_book).inserted_id
             return redirect(url_for("get_book_by_id", book_id=_id))
