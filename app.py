@@ -65,7 +65,7 @@ def is_logged_in():
         if session and session["user"]:
             return True
         return False
-    except:
+    except KeyError:
         return False
 
 
@@ -128,12 +128,12 @@ def home():
             "editors_comments": "The first book in Michelle pavers 'Chronicles of Ancient Darkness' series, Wolf brother represents the YA fantasy genre at it's finest. Follow the young hunter Torak and his companion Wolf they fight to survive in a stone age world deep with magic and spirits after the tragic death of Toraks farther at the hands of a deamon bear. With deep characters, a vast and intriguing world and a driving plot, Wolf brother is a must for readers of all ages."
         }
         editors_pick_two = {
-            "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61d88ec47936d37650e0f904")})),
+            "book": set_average_rating(mongo.db.books.find_one({"_id": ObjectId("61d88ec47936d37650e0f904")})),
             "picked_by": "Chronologic",
             "editors_comments": "John Green takes a step away from young adult fiction to bring us this incredibly insightful and compelling look into the world of The Anthropocene. For those who may not know, the anthropocene refers to the current era of history and this book offers a guided tour of a human centered world. John explores and rates things from the QWERTY keyboard to Halley's commet on a 5 star scale. With charming anecdotes, fantastic prose and a wonderful audiobook version narated by the author himself, this book is a must read for all."
         }
         return render_template("home.html", books=books[:6], editors_pick_one=editors_pick_one, editors_pick_two=editors_pick_two)
-    except:
+    except (SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -142,7 +142,7 @@ def get_all_books():
     try:
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         return render_template("all_books.html", books=books)
-    except:
+    except (TypeError, ValueError, SystemError):
         abort(500)
 
 
@@ -168,19 +168,19 @@ def search():
         except ValueError:
             flash("Invalid value. Minimum of one character required")
             return redirect(url_for("get_all_books"))
-        except:
+        except (SystemError, TypeError):
             abort(500)
 
 
 @app.route("/book/<book_id>/view")
 def get_book_by_id(book_id):
     try:
-        book = mongo.db.books.find_one({ "_id": ObjectId(book_id) })
+        book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
         book = set_average_rating(book)
         return render_template("book.html", book=book)
     except InvalidId:
         abort(404)
-    except:
+    except(SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -203,7 +203,7 @@ def add_book():
             }
             _id = mongo.db.books.insert_one(new_book).inserted_id
             return redirect(url_for("get_book_by_id", book_id=_id))
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
     return render_template("add_book.html")
 
@@ -220,7 +220,7 @@ def delete_book(book_id):
         return redirect(url_for("get_all_books"))
     except InvalidId:
         abort(404)
-    except:
+    except (SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -245,10 +245,10 @@ def edit_book(book_id):
             flash("Book Updated Successfully")
             book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
             return redirect(url_for("get_book_by_id", book_id=book_id))
-            
+
         except InvalidId:
             abort(404)
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
 
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
@@ -275,12 +275,12 @@ def add_review(book_id):
                 "review": request.form.get("review-body"),
                 "rating": int(request.form.get("star"))
             }
-            new_values = { "$addToSet": {"reviews": new_review}}
+            new_values = {"$addToSet": {"reviews": new_review}}
             mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
             flash("Review Added Successfully")
         except InvalidId:
             abort(404)
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
 
     return redirect(url_for("get_book_by_id", book_id=book_id))
@@ -295,14 +295,14 @@ def delete_review(book_id):
     try:
         user = session["user"]
         mongo.db.books.update_one(
-                { "_id": ObjectId(book_id) },
-                { "$pull": { 'reviews': { "author": user }
-            }})
+                {"_id": ObjectId(book_id)},
+                {"$pull": {'reviews': {"author": user}
+                }})
         flash("Review Successfully Removed")
         return redirect(url_for("get_book_by_id", book_id=book_id))
     except InvalidId:
         abort(404)
-    except:
+    except (SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -315,36 +315,35 @@ def edit_review(book_id):
     if request.method == "POST":
         try:
             user = session["user"]
-            new_values = { 
+            new_values = {
                 "author": user,
                 "review": request.form.get("review-body"),
                 "rating": int(request.form.get("star"))
             }
             mongo.db.books.update_one(
-                { "_id": ObjectId(book_id), "reviews.author": user },
-                { "$set": {"reviews.$": new_values }}
+                {"_id": ObjectId(book_id), "reviews.author": user},
+                {"$set": {"reviews.$": new_values}}
             )
             flash("Review Updated Successfully")
             book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
             return redirect(url_for("get_book_by_id", book_id=book_id))
-            
+
         except InvalidId:
             abort(404)
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
     try:
         user = session["user"]
         book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
         review = mongo.db.books.find_one(
-                    { "_id": ObjectId(book_id) },
-                    { "reviews": {"$elemMatch": {"author": user}}
+                    {"_id": ObjectId(book_id)},
+                    {"reviews": {"$elemMatch": {"author": user}}
                 })["reviews"][0]
-        
         return render_template("edit_review.html", book=book, review=review)
 
     except InvalidId:
         abort(404)
-    except:
+    except (SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -376,7 +375,7 @@ def login():
                 # invalid username
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("login"))
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
     return render_template("login.html")
 
@@ -407,7 +406,7 @@ def register():
             session["user"] = request.form.get("username").lower()
             flash("Registration Successful!")
             return redirect(url_for("get_all_books", username=session["user"]))
-        except:
+        except (SystemError, ValueError, TypeError):
             abort(500)
 
     return render_template("register.html")
@@ -420,7 +419,7 @@ def logout():
         flash("Thank you for visiting BookMarks. We hope to see you again soon!")
         session.pop("user")
         return redirect(url_for("home"))
-    except:
+    except (SystemError, ValueError, TypeError):
         abort(500)
 
 
@@ -435,7 +434,7 @@ def profile():
         username = session["user"]
         user = mongo.db.users.find_one({"username": username})
         # get all user reviews
-        books = list(mongo.db.books.find({"reviews.author": { "$eq": user["username"] }}))
+        books = list(mongo.db.books.find({"reviews.author": {"$eq": user["username"]}}))
         user_reviews = get_reviews_for_user_from_books(books, username)
         user["review_count"] = len(user_reviews)
         # get all books added by user
@@ -443,18 +442,20 @@ def profile():
         return render_template("profile.html", user=user, reviews=user_reviews, added_books=added_by_user)
     except (InvalidId, TypeError):
         abort(404)
-    except:
+    except (SystemError, ValueError):
         abort(500)
 
 
 # error handlers
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
+    print(e)
     return render_template("404.html"), 404
 
 
 @app.errorhandler(500)
-def server_error():
+def server_error(e):
+    print(e)
     return render_template("500.html"), 500
 
 
