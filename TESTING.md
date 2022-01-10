@@ -9,11 +9,34 @@
 ## **Table of contents**
 
 - [User Testing](#user-testing)
-- [Credits](#credits)
+- [User Stories Testing](#user-stories-testing)
+- [Bugs](#bugs)
 
-## User Testing
+## **User Testing**
 
-### Bugs
+## **User Stories Testing**
+
+## **Performance**
+
+## **Code Validation**
+
+### HTML validation
+
+All HTML was tested using [Nu HTML Checker](https://validator.w3.org/nu/) and returned no errors.
+
+<p align="center">
+    <img src="readme-assets\html-validation.png" width="500px"/>
+</p>
+
+### CSS validation
+
+All custom CSS code was tested using the [Jigsaw css validator](https://jigsaw.w3.org/css-validator/) and showed no errors.
+
+<p align="center">
+    <img src="readme-assets\css-validation.png" width="500px"/>
+</p>
+
+## **Bugs**
 
 - The intention of this code was to take a list of all books and return an array containing only reviews from those books written by a specific user. In my first iteration of the code some user profiles were producing an 'IndexError: list index out of range'. To test this error I printed the results at each stage and found the cause. This error was due to the assumption in my code that the index I would be referencing to add the books title to the 'user_reviews' array would be the same as the current index of the for reviews loop. This would only be true under very specific conditions and would not produce the desired, consistent effect. To resolve this issue I created a separate value to allow me to store, update, then append the data to the 'user_reviews' array before the end of the loop without relying on the loop index.
 
