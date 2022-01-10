@@ -14,21 +14,30 @@
             <a href="{{url_for("add_book")}}"
                 class="btn-floating btn-large waves-effect waves-light red darken-2 hoverable"><i
                     class="material-icons">add</i></a>
-        </div class="col s3">
+        </div>
     </div>
 </div>
 {% endif %}
 
 <!-- search -->
-<form class="col s12 m10 l8 offset-l2 offset-m1 card-content" method="POST" action="{{ url_for("search") }}">
-    <div class="row">
-        <div class="input-field col s12">
-            <i class="material-icons prefix red-text text-darken-2">search</i>
-            <input id="query" name="query" type="text" class="validate" required>
-            <label for="query">Search</label>
-        </div>
+<form class="col s12 m10 l8 offset-l2 offset-m1" method="POST" action="{{ url_for("search") }}">
+    <div class="input-field col s12">
+        <i class="material-icons prefix red-text text-darken-2">search</i>
+        <input id="query" name="query" type="text" class="validate" required>
+        <label for="query">Search</label>
     </div>
 </form>
+
+{% if search_query %}
+
+<div class="col s12 center-align">
+    <p class="search-query">{{books|length}} result{% if books|length > 1%}s{% endif %} for search:
+        {{search_query}}
+    </p>
+    <hr>
+</div>
+
+{% endif %}
 
 <!-- preview card for each book-->
 {% if books|length > 0 %}

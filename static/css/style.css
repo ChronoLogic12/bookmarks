@@ -99,6 +99,12 @@ textarea.materialize-textarea {
 	min-height: 10rem !important;
 }
 
+/* search */
+
+.search-query {
+	margin: 0 !important;
+}
+
 /* Book preview cards */
 .book-preview {
 	height: 200px;

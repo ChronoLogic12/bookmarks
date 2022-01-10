@@ -164,7 +164,7 @@ def search():
                     }
                 }
             }]))
-            return render_template("all_books.html", books=books)
+            return render_template("all_books.html", books=books, search_query=query)
         except ValueError:
             flash("Invalid value. Minimum of one character required")
             return redirect(url_for("get_all_books"))
