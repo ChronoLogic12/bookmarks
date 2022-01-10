@@ -29,6 +29,7 @@ BookMarks in an online book review site where users can share their opinions on 
       - [As a first time visiter to this site I want to be able to -](#as-a-first-time-visiter-to-this-site-i-want-to-be-able-to--)
       - [As an admin of this site I want to be able to -](#as-an-admin-of-this-site-i-want-to-be-able-to--)
     - [Wireframes](#wireframes)
+    - [Design](#design)
   - [**Features**](#features)
     - [Navigation](#navigation)
     - [Footer](#footer)
@@ -96,6 +97,10 @@ Wireframes were created for mobile, tablet and desktop screen sizes with [Figma]
 - [Tablet](readme-assets/bookmarks-wireframe-mobile.png)
 - [Desktop](readme-assets/bookmarks-wireframe-desktop.png)
 
+### Design
+
+As the focus of this site is the books I chose to use a very simple colour pallet with only one colour. This single action colour makes it easy to identify important aspects of any page and avoids causing visual clutter when placed on a page with multiple book covers of varying colours and styles. The site uses consistent styling of elements throughout to further promote readability. The site uses materializes 12 column grid system to achieve a responsive layout.
+
 ## **Features**
 
 ### Navigation
@@ -162,7 +167,7 @@ The first section of the sites home page is dedicated to the books with the high
 The editors pick section of the home page contains short write ups on some of the favorite picks of site editors, encouraging users to check out certain titles and engage with the community. Each write up also contains a preview card to direct the user to the books details page.
 
 <p align="center">
-    <img src="" width="600px"/>
+    <img src="readme-assets\editors-picks.PNG" width="600px"/>
 </p>
 
 ### Books
