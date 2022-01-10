@@ -9,8 +9,6 @@ from flask_pymongo import PyMongo
 from bson.objectid import (ObjectId, InvalidId)
 from validators.utils import ValidationFailure
 from werkzeug.security import generate_password_hash, check_password_hash
-if os.path.exists("env.py"):
-    import env
 
 
 app = Flask(__name__)
@@ -127,12 +125,12 @@ def home():
             "book": set_average_rating(mongo.db.books.find_one(
                 {"_id": ObjectId("61cd82c913fe8666a4ed0241")})),
             "picked_by": "Chronologic",
-            "editors_comments": "The first book in Michelle pavers 'Chronicles of Ancient Darkness' series, Wolf brother represents the YA fantasy genre at it's finest. Follow the young hunter Torak and his companion Wolf they fight to survive in a stone age world deep with magic and spirits after the tragic death of Toraks farther at the hands of a deamon bear. With deep characters, a vast and intriguing world and a driving plot, Wolf brother is a must for reader fo all ages."
+            "editors_comments": "The first book in Michelle pavers 'Chronicles of Ancient Darkness' series, Wolf brother represents the YA fantasy genre at it's finest. Follow the young hunter Torak and his companion Wolf they fight to survive in a stone age world deep with magic and spirits after the tragic death of Toraks farther at the hands of a deamon bear. With deep characters, a vast and intriguing world and a driving plot, Wolf brother is a must for readers of all ages."
         }
         editors_pick_two = {
             "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61d88ec47936d37650e0f904")})),
             "picked_by": "Chronologic",
-            "editors_comments": "John Green takes a step away from young adult fiction to bring us this incredibly insightful and compelling look into the world of The Anthropocene. For those who may not know, the anthropocene refers to the current era of history and this book offers a guided tour of a human centered world. John explores and rates things from the QWERTY keyboard to Halley's commet on a 5 star scale. With charming anecdotes, fantastic prose and a wonderful audiobook version narated by the author himself, this book is a must read for all. "
+            "editors_comments": "John Green takes a step away from young adult fiction to bring us this incredibly insightful and compelling look into the world of The Anthropocene. For those who may not know, the anthropocene refers to the current era of history and this book offers a guided tour of a human centered world. John explores and rates things from the QWERTY keyboard to Halley's commet on a 5 star scale. With charming anecdotes, fantastic prose and a wonderful audiobook version narated by the author himself, this book is a must read for all."
         }
         return render_template("home.html", books=books[:6], editors_pick_one=editors_pick_one, editors_pick_two=editors_pick_two)
     except:
