@@ -18,23 +18,44 @@ BookMarks in an online book review site where users can share their opinions on 
 
 ## **Table of contents**
 
-- [UX design](#ux-design)
-  - [Project Goals](#project-goals)
-  - [User Stories](#user-stories)
-  - [Wireframes](#wireframes)
-  - [](#)
-  - [](#)
-- [Features](#features)
-  - [](#)
-- [Testing](#testing)
-- [Deployment](#deployment-github-pages)
-- [Credits](#credits)
+- [**BookMarks** - Book reviews and recommendations](#bookmarks---book-reviews-and-recommendations)
+  - [Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development](#code-institute-milestone-project-3-htmlcssjavascriptpythonflaskmongodb---python-and-data-centric-development)
+  - [**About BookMarks**](#about-bookmarks)
+  - [**Table of contents**](#table-of-contents)
+  - [**UX design**](#ux-design)
+    - [Project Goals](#project-goals)
+    - [User Stories](#user-stories)
+      - [As a regular user of this site I want to be able to -](#as-a-regular-user-of-this-site-i-want-to-be-able-to--)
+      - [As a first time visiter to this site I want to be able to -](#as-a-first-time-visiter-to-this-site-i-want-to-be-able-to--)
+      - [As an admin of this site I want to be able to -](#as-an-admin-of-this-site-i-want-to-be-able-to--)
+    - [Wireframes](#wireframes)
+  - [**Features**](#features)
+    - [Navigation](#navigation)
+    - [Footer](#footer)
+    - [Flash messages](#flash-messages)
+    - [Book preview cards](#book-preview-cards)
+    - [Home](#home)
+    - [Books](#books)
+    - [Add a book](#add-a-book)
+    - [Book details](#book-details)
+    - [Edit book](#edit-book)
+    - [Edit review](#edit-review)
+    - [Profile](#profile)
+    - [Entry](#entry)
+  - [Testing](#testing)
+    - [Bugs](#bugs)
+  - [Deployment](#deployment)
+    - [Heroku](#heroku)
+  - [Credits](#credits)
+    - [Content](#content)
+    - [Media](#media)
+    - [Help and info](#help-and-info)
 
 ## **UX design**
 
 ### Project Goals
 
-The aim of this project is to produce a website that allows book lovers to rate and review books which they have read and share their thoughts with a wider community. With a average rating system of marks out of 5 a user should be able to tell at a glance the general consensus regarding a given book and have the option to dive deeper into people opinions through access to full written reviews.
+The aim of this project is to produce a website that allows book lovers to rate and review books which they have read and share their thoughts with a wider community. With a average rating system of marks out of 5 a user should be able to tell at a glance the general consensus regarding a given book and have the option to dive deeper into peoples opinions through access to full written reviews.
 
 ### User Stories
 
@@ -76,7 +97,7 @@ The aim of this project is to produce a website that allows book lovers to rate 
 
 ## **Features**
 
-- Navigation
+### Navigation
 
 The sites navigation section is located at the top of all pages. This section contains the BookMarks brand name and logo as well as the page navigation controls for larger displays
 
@@ -95,7 +116,7 @@ Nav controls responsively employ materializes active styling to indicate to the 
 1. When logged in the page links are as follows: Home - Books - Profile - Sign Out.
 2. When logged out the page links are as follows: Home - Books - Sign In - Register.
 
-- Footer
+### Footer
 
 The footer section is located at the bottom of all pages and contains a copyright statement and links to facebook, instagram and twitter.
 
@@ -103,7 +124,21 @@ The footer section is located at the bottom of all pages and contains a copyrigh
     <img src="readme-assets\footer.PNG" width="600px"/>
 </p>
 
-### Book preview cards/links
+### Flash messages
+
+Flash messages are used across the site to give feedback to users in response to their inputs. These responses include confirmation of successful login, logout, register, add new book, add new review as well as informing users or errors such as incorrect username and/or password and username already in user. Flash messages are always rendered at the top of the page.
+
+<p align="center">
+    <img src="readme-assets\flash-welcome.PNG" width="600px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\flash-review-added.PNG" width="600px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\flash-logout.PNG" width="600px"/>
+</p>
+
+### Book preview cards
 
 Throughout the site book previews are displayed as cards containing the books basic info such as title, author and average rating as well as the books cover art. Preview cards also function as links to that books details page where they can find further details and review for the title. These preview cards are displayed in one or two column grids depending on the users screen size and site section.
 
@@ -157,7 +192,7 @@ When selecting the add book button from the books page you are directed to a for
     <img src="readme-assets\add-book-form.PNG" width="600px"/>
 </p>
 
-### book<book_id> (book details)
+### Book details
 
 Each book has it's own unique page containing all it's information, user reviews and controls.
 
