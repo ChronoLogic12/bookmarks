@@ -265,7 +265,41 @@ Submitting the form will update the current book details page and display the ne
 
 - Account details
 
+Each users profile page contains three sections. The first section is a full size banner displaying the Username and a count of the total number of reviews the user has added.
+
+<p align="center">
+    <img src="readme-assets\user-profile-banner.PNG" width="500px"/>
+</p>
+
+The next section contains all of a users submitted reviews. These review cards follow the same format as on the book details pages but displays the name of the book the review is for instead of the review authors username.
+
+<p align="center">
+    <img src="readme-assets\profile-user-reviews.PNG" width="500px"/>
+</p>
+
+The final section displays book preview card/links for each book that the user has added to the site.
+
+<p align="center">
+    <img src="readme-assets\profile-added-books.PNG" width="500px"/>
+</p>
+
 ### Entry
+
+- Login
+
+This page consists of a login form with fields for username and password, a submit button and a section to direct users to the register page if they do not currently have a registered account. Inputs are checked on submission and if they are valid and match a registered user they will be logged in. If the data is invalid/incorrect either a form prompt or flash message will give feedback to the user and direct them to try again.
+
+<p align="center">
+    <img src="readme-assets\login.PNG" width="500px"/>
+</p>
+
+- Register
+
+The register page is similar in layout to the login page but the main form is to register a new account and the prompt section directs to the login page for already registered users. On submission details are checked against registered users to determine if the given username is unique. If it is unique a new user account will be registered, if it is not, a flash message will be displayed asking the user to pick a different username.
+
+<p align="center">
+    <img src="readme-assets\register.PNG" width="500px"/>
+</p>
 
 ## Testing
 
