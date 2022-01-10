@@ -263,6 +263,8 @@ Submitting the form will update the current book details page and display the ne
 
 ### Profile
 
+- Account details
+
 ### Entry
 
 ## Testing
