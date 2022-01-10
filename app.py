@@ -170,6 +170,7 @@ def search():
                     }
                 }
             }]))
+            books = set_average_rating_for_all_books(books)
             return render_template("all_books.html", books=books, search_query=query)
         except ValueError:
             flash("Invalid value. Minimum of one character required")
@@ -455,14 +456,14 @@ def profile():
 
 # error handlers
 @app.errorhandler(404)
-def page_not_found(e):
-    print(e)
+def page_not_found(err):
+    print(err)
     return render_template("404.html"), 404
 
 
 @app.errorhandler(500)
-def server_error(e):
-    print(e)
+def server_error(err):
+    print(err)
     return render_template("500.html"), 500
 
 
