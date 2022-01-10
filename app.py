@@ -1,7 +1,6 @@
 import os
 import requests
 import validators
-from random import expovariate
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
@@ -74,8 +73,8 @@ def is_logged_in():
 
 def get_reviews_for_user_from_books(books, username):
     """
-    Takes a list containing all the books the user 
-    has reviews and their username and returns a list 
+    Takes a list containing all the books the user
+    has reviews and their username and returns a list
     containing only the users reviews.
 
         Parameter:
@@ -125,14 +124,15 @@ def home():
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
         books.sort(key=lambda book: book["avg_rating"], reverse=True)
         editors_pick_one = {
-            "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61cd82c913fe8666a4ed0241")})),
-            "picked_by": "test text",
-            "editors_comments": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            "book": set_average_rating(mongo.db.books.find_one(
+                {"_id": ObjectId("61cd82c913fe8666a4ed0241")})),
+            "picked_by": "Chronologic",
+            "editors_comments": "The first book in Michelle pavers 'Chronicles of Ancient Darkness' series, Wolf brother represents the YA fantasy genre at it's finest. Follow the young hunter Torak and his companion Wolf they fight to survive in a stone age world deep with magic and spirits after the tragic death of Toraks farther at the hands of a deamon bear. With deep characters, a vast and intriguing world and a driving plot, Wolf brother is a must for reader fo all ages."
         }
         editors_pick_two = {
             "book": set_average_rating(mongo.db.books.find_one({ "_id": ObjectId("61d88ec47936d37650e0f904")})),
             "picked_by": "Chronologic",
-            "editors_comments": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            "editors_comments": "John Green takes a step away from young adult fiction to bring us this incredibly insightful and compelling look into the world of The Anthropocene. For those who may not know, the anthropocene refers to the current era of history and this book offers a guided tour of a human centered world. John explores and rates things from the QWERTY keyboard to Halley's commet on a 5 star scale. With charming anecdotes, fantastic prose and a wonderful audiobook version narated by the author himself, this book is a must read for all. "
         }
         return render_template("home.html", books=books[:6], editors_pick_one=editors_pick_one, editors_pick_two=editors_pick_two)
     except:
@@ -203,7 +203,7 @@ def add_book():
                 "added_by": session["user"],
                 "reviews": [],
             }
-            _id = mongo.db.books.insert_one(new_book).inserted_id      
+            _id = mongo.db.books.insert_one(new_book).inserted_id
             return redirect(url_for("get_book_by_id", book_id=_id))
         except:
             abort(500)
@@ -231,7 +231,7 @@ def edit_book(book_id):
 
     if not is_logged_in():
         return redirect(url_for("login"))
-        
+
     if request.method == "POST":
         try:
             new_values = {
@@ -299,7 +299,7 @@ def delete_review(book_id):
         mongo.db.books.update_one(
                 { "_id": ObjectId(book_id) },
                 { "$pull": { 'reviews': { "author": user }
-            }});
+            }})
         flash("Review Successfully Removed")
         return redirect(url_for("get_book_by_id", book_id=book_id))
     except InvalidId:
@@ -340,12 +340,12 @@ def edit_review(book_id):
         review = mongo.db.books.find_one(
                     { "_id": ObjectId(book_id) },
                     { "reviews": {"$elemMatch": {"author": user}}
-                })["reviews"][0];
+                })["reviews"][0]
         
         return render_template("edit_review.html", book=book, review=review)
 
     except InvalidId:
-            abort(404)
+        abort(404)
     except:
         abort(500)
 
@@ -363,12 +363,12 @@ def login():
 
             if existing_user:
                 if check_password_hash(
-                        existing_user["password"], request.form.get("password")):
-                            session["user"] = request.form.get("username").lower()
-                            flash("Welcome, {}".format(
-                                request.form.get("username")))
-                            return redirect(url_for(
-                                "home", username=session["user"]))
+                    existing_user["password"], request.form.get("password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}".format(
+                        request.form.get("username")))
+                    return redirect(url_for(
+                        "home", username=session["user"]))
                 else:
                     # invalid password
                     flash("Incorrect Username and/or Password")
@@ -399,11 +399,11 @@ def register():
                 flash("Username in use")
                 return redirect(url_for("register"))
 
-            register = {
+            new_user = {
                 "username": request.form.get("username").lower(),
                 "password": generate_password_hash(request.form.get("password"))
             }
-            mongo.db.users.insert_one(register)
+            mongo.db.users.insert_one(new_user)
 
             # put the new user into 'session' cookie
             session["user"] = request.form.get("username").lower()
@@ -451,12 +451,12 @@ def profile():
 
 # error handlers
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template("404.html"), 404
 
 
 @app.errorhandler(500)
-def page_not_found(e):
+def server_error():
     return render_template("500.html"), 500
 
 
