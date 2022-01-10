@@ -217,14 +217,9 @@ label.star:before {
 
 /* footer */
 
-.social-icons {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-}
-
 .social-icons a {
 	font-size: 2rem;
+	margin: 0 25px;
 }
 
 /* media queries */

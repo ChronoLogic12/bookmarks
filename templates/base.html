@@ -43,8 +43,8 @@
                         href="{{ url_for("get_all_books")}}">Books</a></li>
                 {% if session.user %}
                 <li {% if request.path == "/profile" %} class="active" {% endif %}><a
-                        href="{{ url_for("profile", username=session.user)}}">Profile</a></li>
-                <li><a href="{{ url_for("logout")}}">Sign Out</a></li>
+                        href="{{url_for("profile")}}">Profile</a></li>
+                <li><a href="{{url_for("logout")}}">Sign Out</a></li>
                 {% else %}
                 <li {% if request.path == "/login" %} class="active" {% endif %}><a href="{{ url_for("login")}}">Sign
                         In</a>
@@ -62,9 +62,9 @@
         <li {% if request.path == "/books" %} class="active" {% endif %}><a href="{{ url_for("get_all_books")}}"
                 class="white-text">Books</a></li>
         {% if session.user %}
-        <li {% if request.path == "/profile" %} class="active" {% endif %}><a
-                href="{{ url_for("profile", username=session.user)}}" class="white-text">Profile</a></li>
-        <li><a href="{{ url_for("logout")}}" class="white-text">Sign Out</a></li>
+        <li {% if request.path == "/profile" %} class="active" {% endif %}><a href="{{url_for("profile")}}"
+                class="white-text">Profile</a></li>
+        <li><a href="{{url_for("logout")}}" class="white-text">Sign Out</a></li>
         {% else %}
         <li {% if request.path == "/login" %} class="active" {% endif %}><a href="{{ url_for("login")}}"
                 class="white-text">Sign In</a>
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright center-align">
+        <div class="footer-copyright red darken-4 center-align">
             <div class="container">
                 © 2022 BookMarks
             </div>
