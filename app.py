@@ -279,6 +279,7 @@ def add_review(book_id):
             }
             new_values = { "$addToSet": {"reviews": new_review}}
             mongo.db.books.update_one({"_id": ObjectId(book_id)}, new_values)
+            flash("Review Added Successfully")
         except InvalidId:
             abort(404)
         except:
@@ -418,7 +419,7 @@ def register():
 def logout():
     try:
         # remove user from session cookie
-        flash("You have been logged out")
+        flash("Thank you for visiting BookMarks. We hope to see you again soon!")
         session.pop("user")
         return redirect(url_for("home"))
     except:
