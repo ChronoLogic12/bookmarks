@@ -68,6 +68,10 @@ hr {
 	margin-bottom: 0;
 }
 
+.add-book {
+	margin-left: 0 !important;
+}
+
 .capitalize {
 	text-transform: capitalize;
 }
