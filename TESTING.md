@@ -1,16 +1,23 @@
 # **BookMarks** - Testing
 
-### Code Institute Milestone Project 3 HTML/CSS/JAVASCRIPT/PYTHON+FLASK/MONGODB - Python and Data Centric Development
-
 <p align="center">
     <img src="readme-assets\bookmarks-logo.png" width="200px"/>
 </p>
 
 ## **Table of contents**
 
-- [User Testing](#user-testing)
-- [User Stories Testing](#user-stories-testing)
-- [Bugs](#bugs)
+- [**BookMarks** - Testing](#bookmarks---testing)
+  - [**Table of contents**](#table-of-contents)
+  - [**User Testing**](#user-testing)
+  - [**User Stories Testing**](#user-stories-testing)
+  - [**Performance**](#performance)
+  - [**Code Validation**](#code-validation)
+    - [HTML validation](#html-validation)
+    - [CSS validation](#css-validation)
+    - [JS validation](#js-validation)
+    - [Python validation](#python-validation)
+  - [**Responsive Design**](#responsive-design)
+  - [**Bugs**](#bugs)
 
 ## **User Testing**
 
@@ -25,7 +32,7 @@
 All HTML was tested using [Nu HTML Checker](https://validator.w3.org/nu/) and returned no errors.
 
 <p align="center">
-    <img src="readme-assets\html-validation.png" width="500px"/>
+    <img src="readme-assets/html-validation.png" width="500px"/>
 </p>
 
 ### CSS validation
@@ -33,8 +40,18 @@ All HTML was tested using [Nu HTML Checker](https://validator.w3.org/nu/) and re
 All custom CSS code was tested using the [Jigsaw css validator](https://jigsaw.w3.org/css-validator/) and showed no errors.
 
 <p align="center">
-    <img src="readme-assets\css-validation.png" width="500px"/>
+    <img src="readme-assets/css-validation.png" width="500px"/>
 </p>
+
+### JS validation
+
+All Javascript was tested using [Beautify Tool Javascript validator](https://beautifytools.com/javascript-validator.php) and returned no errors.
+
+### Python validation
+
+Python was tested and check against pep8 standards with pylint in vscode and returned no errors.
+
+## **Responsive Design**
 
 ## **Bugs**
 
