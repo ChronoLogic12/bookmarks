@@ -189,7 +189,9 @@ label.star:before {
 }
 
 .star-container {
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: row-reverse;
 	width: 100%;
 	max-width: 300px;
 	margin: auto !important;
@@ -237,5 +239,11 @@ label.star:before {
 @media only screen and (max-width: 992px) {
 	.logo-image {
 		float: right;
+	}
+}
+
+@media only screen and (max-width: 420px) {
+	label.star {
+		padding: 5px;
 	}
 }
