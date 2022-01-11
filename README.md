@@ -170,11 +170,11 @@ The editors pick section of the home page contains short write ups on some of th
 
 ### Books
 
-The books page displays book preview cards for all books
+The books page displays book preview cards for all books using a one or two column layout depending on user screen size as discussed above.
 
 - Add a Book
 
-When logged in the books page will display a prompt to the user to add a new book at the top of the page. See - [Add a book](#add-a-book)
+When logged in the books page will display a prompt to the user to add a new book at the top of the page. CLicking this will direst the user to the add a book page. See - [Add a book](#add-a-book)
 
 <p align="center">
     <img src="readme-assets\add-book-prompt.PNG" width="500px"/>
@@ -186,6 +186,12 @@ The search bar at the top of the books page allows the user to sort all books by
 
 <p align="center">
     <img src="readme-assets\search.PNG" width="450px"/>
+</p>
+
+When a search is submitted a response is given qualifying the number of results and the search term given. The book preview cards for the books matching the search term are displayed bellow this section.
+
+<p align="center">
+    <img src="readme-assets\search-results.PNG" width="450px"/>
 </p>
 
 ### Add a book
@@ -379,10 +385,10 @@ This project was deployed using Heroku
 ### Help and info
 
 - Code Institute learning material - general knowledge.
-  - [Codecademy](https://www.codecademy.com/learn) - general knowledge.
-  - [w3schools](https://www.w3schools.com/) - general knowledge.
-  - [MND Web Docs](https://developer.mozilla.org/en-US/) - general knowledge.
-  - [Stack Overflow](https://stackoverflow.com/) - debugging.
-  - Interactive star rating element adapted from [the work of Jordan-Simonds(jexordexan)](https://codepen.io/jexordexan/pen/yyYEJa)
-  - [Flask documentation](https://flask.palletsprojects.com/en/2.0.x/)
-  - [Jinja documentation](https://jinja.palletsprojects.com/en/3.0.x/)
+- [Codecademy](https://www.codecademy.com/learn) - general knowledge.
+- [w3schools](https://www.w3schools.com/) - general knowledge.
+- [MND Web Docs](https://developer.mozilla.org/en-US/) - general knowledge.
+- [Stack Overflow](https://stackoverflow.com/) - debugging.
+- Interactive star rating element adapted from [the work of Jordan-Simonds (jexordexan)](https://codepen.io/jexordexan/pen/yyYEJa)
+- [Flask documentation](https://flask.palletsprojects.com/en/2.0.x/)
+- [Jinja documentation](https://jinja.palletsprojects.com/en/3.0.x/)
