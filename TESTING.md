@@ -10,6 +10,9 @@
   - [**Table of contents**](#table-of-contents)
   - [**User Testing**](#user-testing)
   - [**User Stories Testing**](#user-stories-testing)
+    - [As a regular user of this site I want to be able to -](#as-a-regular-user-of-this-site-i-want-to-be-able-to--)
+    - [As a first time visiter to this site I want to be able to -](#as-a-first-time-visiter-to-this-site-i-want-to-be-able-to--)
+    - [As an admin of this site I want to be able to -](#as-an-admin-of-this-site-i-want-to-be-able-to--)
   - [**Performance**](#performance)
   - [**Code Validation**](#code-validation)
     - [HTML validation](#html-validation)
@@ -31,9 +34,178 @@ Throughout this project I conducted 'over the shoulder' user tests to asses the 
 - More friendly exit message after logging out.
 - Books added by a user should appear on their profile page.
 
-These changes along with several small styling tweaks have helped make this a
+These changes along with several small styling tweaks have helped make this a more complete and user friendly product.
 
 ## **User Stories Testing**
+
+#### As a regular user of this site I want to be able to -
+
+- Find and learn about books
+  - The site homepage displays a live update on the highest rated books on the site allowing the user to see what books are currently popular. In addition to this the books page shows all added books and allows the user to search for specific terms within a books title, author, genre and summary fields. Book details pages show full descriptions and details for all titles.
+
+<p align="center">
+    <img src="readme-assets\book-details.PNG" width="400px"/>
+</p>
+
+- Find a books average rating
+  - All book preview cards and book details pages display the books average rating out of 5 to two decimal places along with a graphical representation of this rating.
+
+<p align="center">
+    <img src="readme-assets\book-preview-card.PNG" width="400px"/>
+</p>
+
+- Search for books by parameters such as title, author and genre
+  - The books page allows the user to search for specific terms within a books title, author, genre and summary fields.
+
+<p align="center">
+    <img src="readme-assets\search-results.PNG" width="400px"/>
+</p>
+
+- Find the currently highest rated books
+  - The site home page shows the current top six titles sorted by average user rating.
+
+<p align="center">
+    <img src="readme-assets\home-top-rated.PNG" width="400px"/>
+</p>
+
+- Add books to the site
+  - User can add books to the site by clicking on the prompt from the books page which takes them to a form to add details to the new entry.
+
+<p align="center">
+    <img src="readme-assets\add-book-form.PNG" width="400px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\add-book-prompt.PNG" width="400px"/>
+</p>
+
+- Write and post reviews for books
+  - logged in users that have not already added a review to the current book are prompted to add a review via a card below the books details. Clicking this prompt opens a modal where the user can add the details of their review and select a star rating.
+
+<p align="center">
+    <img src="readme-assets\add-review-prompt.PNG" width="400px"/>
+</p>
+
+<p align="center">
+    <img src="readme-assets\add-review.PNG" width="400px"/>
+</p>
+
+- View all reviews I have posted
+  -All review written buy a user are displayed on the users profile page.
+
+<p align="center">
+    <img src="readme-assets\profile-user-reviews.PNG" width="400px"/>
+</p>
+
+- Edit/delete reviews that I have posted
+  - User reviews can be edited or deleted by the review author from the reviews section of the pertaining book.
+
+<p align="center">
+    <img src="readme-assets/review-open-with-controls.PNG" width="400px"/>
+</p>
+
+- View reviews other people have written
+  - Any/All reviews for a book are displayed on the books details page.
+
+<p align="center">
+    <img src="readme-assets/review-closed.PNG" width="400px"/>
+</p>
+
+- Edit/delete books I have added
+  - Controls to delete/edit books can be located at the top of a books details page for the user who added the book and site admin.
+
+<p align="center">
+    <img src="readme-assets\book-edit-delete-controls.PNG" width="400px"/>
+</p>
+
+- Log in to my account
+  - Users can navigate to the login page from the navbar or from a prompt on any book details page or the registration page. There they will need to enter their account details into a login form to access their account.
+
+<p align="center">
+    <img src="readme-assets\login.PNG" width="400px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\login-register-prompt.PNG" width="400px"/>
+</p>
+
+- Log out of my account
+  - User can select to log out from the navigation bar located at the top of any page, or the expandable sidenav for mobile users.
+
+<p align="center">
+    <img src="readme-assets\nav-desktop.PNG" width="500px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\nav-mobile-sidebar.PNG" width="100px"/>
+</p>
+
+#### As a first time visiter to this site I want to be able to -
+
+- Easily understand the purpose of the site
+  - The site homepage predominantly displays book preview cards which show book cover art, titles, authors and truncated summaries. This combines with the title and 'Top Rated Books' banner should make the sites intentions clear and obvious.
+
+<p align="center">
+    <img src="readme-assets\home-top-rated.PNG" width="400px"/>
+</p>
+
+- Learn about specific books
+  - The books page allows the user to search for specific terms within a books title, author, genre and summary fields. This would allow a user ot find any currently added book by Title or author with ease.
+
+<p align="center">
+    <img src="readme-assets\search-results.PNG" width="400px"/>
+</p>
+
+- View reviews other people have written
+  - Any/All reviews for a book are displayed on the books details page.
+
+<p align="center">
+    <img src="readme-assets/review-closed.PNG" width="400px"/>
+</p>
+
+- Create an account
+  - Users can navigate to the register page from the navbar or from a prompt on any book details page or the login page. There they will be prompted to complete a registration form to register an account.
+
+<p align="center">
+    <img src="readme-assets\register.PNG" width="400px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\login-register-prompt.PNG" width="400px"/>
+</p>
+
+#### As an admin of this site I want to be able to -
+
+- Login to an admin account
+  - Users can navigate to the login page from the navbar or from a prompt on any book details page or the registration page. There they will need to enter the admin account details into a login form to access their account.
+
+<p align="center">
+    <img src="readme-assets\login.PNG" width="400px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\login-register-prompt.PNG" width="400px"/>
+</p>
+
+- Log out of an admin account
+  - User can select to log out from the navigation bar located at the top of any page, or the expandable sidenav for mobile users.
+
+<p align="center">
+    <img src="readme-assets\nav-desktop.PNG" width="500px"/>
+</p>
+<p align="center">
+    <img src="readme-assets\nav-mobile-sidebar.PNG" width="100px"/>
+</p>
+
+- Edit the details of a book
+- Delete a book
+  - The site admin account has access to the delete/edit controls for all books. These controls can be located at the top of any books details page.
+
+<p align="center">
+    <img src="readme-assets\book-edit-delete-controls.PNG" width="400px"/>
+</p>
+
+- Delete a user review (potentially offensive content)
+  - The site admin account has access to delete controls for all user reviews. These controls are located at the bottom of the expandable section of any user review and should be used to remove any offensive content.
+
+<p align="center">
+    <img src="readme-assets\review-open-admin-controls.PNG" width="400px"/>
+</p>
 
 ## **Performance**
 
@@ -102,7 +274,7 @@ _Each image shows the results for a page for both desktop (left) and mobile (rig
 All HTML was tested using [Nu HTML Checker](https://validator.w3.org/nu/) and returned no errors.
 
 <p align="center">
-    <img src="readme-assets/html-validation.png" width="500px"/>
+    <img src="readme-assets/html-validation.PNG" width="500px"/>
 </p>
 
 ### CSS validation
@@ -110,7 +282,7 @@ All HTML was tested using [Nu HTML Checker](https://validator.w3.org/nu/) and re
 All custom CSS code was tested using the [Jigsaw css validator](https://jigsaw.w3.org/css-validator/) and showed no errors.
 
 <p align="center">
-    <img src="readme-assets/css-validation.png" width="500px"/>
+    <img src="readme-assets/css-validation.PNG" width="500px"/>
 </p>
 
 ### JS validation
