@@ -21,9 +21,79 @@
 
 ## **User Testing**
 
+Throughout this project I conducted 'over the shoulder' user tests to asses the usability, readability and functionality of the site and it's features. These tests involved allowing test users to freely use the site while observing to gage how they were engaging with elements to determine if everything was functioning as intended. I also gathered feedback as to how users felt about certain aspects in order to improve the UX. I was able to improve the useability of the site inv various ways thanks to their feedback, such as -
+
+- Removing the prompt to add a review if a user has already submitted one.
+- Maintain consistency of hover effects on interactive elements.
+- Buttons to move to register from login and vice versa without accessing the navbar to improve mobile useability.
+- Star rating values should always be displayed out of their total potential value to improve readability.
+- Give feedback of search term and number of results after entering a search so as not to leave a user on a empty page with no explanation.
+- More friendly exit message after logging out.
+- Books added by a user should appear on their profile page.
+
+These changes along with several small styling tweaks have helped make this a
+
 ## **User Stories Testing**
 
 ## **Performance**
+
+Site performance was tested using Google Chrome's Lighthouse tool. All pages scored high across all parameters though performance for mobile devices was slightly lower on pages with images as images are user added and not optimized or size adjusted. These are the lighthouse results -
+
+_Each image shows the results for a page for both desktop (left) and mobile (right)_
+
+1. /home
+
+<p align="center">
+    <img src="readme-assets/performance/home.png" width="500px"/>
+</p>
+
+2. /books
+
+<p align="center">
+    <img src="readme-assets/performance/books.png" width="500px"/>
+</p>
+
+3. /book/<book_id>/view
+
+<p align="center">
+    <img src="readme-assets/performance/book-details.png" width="500px"/>
+</p>
+
+4. /book/add
+
+<p align="center">
+    <img src="readme-assets/performance/add-book.png" width="500px"/>
+</p>
+
+5. /book/<book_id>/edit
+
+<p align="center">
+    <img src="readme-assets/performance/edit-book.png" width="500px"/>
+</p>
+
+6. /book/<book_id>/review/edit
+
+<p align="center">
+    <img src="readme-assets/performance/edit-review.png" width="500px"/>
+</p>
+
+7. /profile
+
+<p align="center">
+    <img src="readme-assets/performance/profile.png" width="500px"/>
+</p>
+
+8. /login
+
+<p align="center">
+    <img src="readme-assets/performance/login.png" width="500px"/>
+</p>
+
+9. /register
+
+<p align="center">
+    <img src="readme-assets/performance/register.png" width="500px"/>
+</p>
 
 ## **Code Validation**
 
