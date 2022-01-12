@@ -4,21 +4,23 @@
     <img src="readme-assets\bookmarks-logo.png" width="200px"/>
 </p>
 
+[README.md](README.md)
+
+[Live Site](https://bookmarks-flask-app.herokuapp.com/home)
+
 ## **Table of contents**
 
 - [**BookMarks** - Testing](#bookmarks---testing)
   - [**Table of contents**](#table-of-contents)
   - [**User Testing**](#user-testing)
   - [**User Stories Testing**](#user-stories-testing)
-    - [As a regular user of this site I want to be able to -](#as-a-regular-user-of-this-site-i-want-to-be-able-to--)
-    - [As a first time visiter to this site I want to be able to -](#as-a-first-time-visiter-to-this-site-i-want-to-be-able-to--)
-    - [As an admin of this site I want to be able to -](#as-an-admin-of-this-site-i-want-to-be-able-to--)
   - [**Performance**](#performance)
   - [**Code Validation**](#code-validation)
     - [HTML validation](#html-validation)
     - [CSS validation](#css-validation)
     - [JS validation](#js-validation)
     - [Python validation](#python-validation)
+  - [**Manual Testing**](#manual-testing)
   - [**Responsive Design**](#responsive-design)
   - [**Bugs**](#bugs)
 
@@ -38,7 +40,7 @@ These changes along with several small styling tweaks have helped make this a mo
 
 ## **User Stories Testing**
 
-#### As a regular user of this site I want to be able to -
+1. As a regular user of this site I want to be able to -
 
 - Find and learn about books
   - The site homepage displays a live update on the highest rated books on the site allowing the user to see what books are currently popular. In addition to this the books page shows all added books and allows the user to search for specific terms within a books title, author, genre and summary fields. Book details pages show full descriptions and details for all titles.
@@ -137,7 +139,7 @@ These changes along with several small styling tweaks have helped make this a mo
     <img src="readme-assets\nav-mobile-sidebar.PNG" width="100px"/>
 </p>
 
-#### As a first time visiter to this site I want to be able to -
+2. As a first time visiter to this site I want to be able to -
 
 - Easily understand the purpose of the site
   - The site homepage predominantly displays book preview cards which show book cover art, titles, authors and truncated summaries. This combines with the title and 'Top Rated Books' banner should make the sites intentions clear and obvious.
@@ -170,7 +172,7 @@ These changes along with several small styling tweaks have helped make this a mo
     <img src="readme-assets\login-register-prompt.PNG" width="400px"/>
 </p>
 
-#### As an admin of this site I want to be able to -
+3. As an admin of this site I want to be able to -
 
 - Login to an admin account
   - Users can navigate to the login page from the navbar or from a prompt on any book details page or the registration page. There they will need to enter the admin account details into a login form to access their account.
@@ -287,13 +289,36 @@ All custom CSS code was tested using the [Jigsaw css validator](https://jigsaw.w
 
 ### JS validation
 
-All Javascript was tested using [Beautify Tool Javascript validator](https://beautifytools.com/javascript-validator.php) and returned no errors.
+All Javascript code was tested using [Beautify Tool Javascript validator](https://beautifytools.com/javascript-validator.php) and returned no errors.
 
 ### Python validation
 
-Python was tested and check against pep8 standards with pylint in vscode and returned no errors.
+All Python was tested and checked against pep8 standards using pylint in vscode and returned no errors.
+
+## **Manual Testing**
 
 ## **Responsive Design**
+
+To test the responsive design of my site I checked each page in various sizes using Google Chromes Dev tools. Chrome dev tools allow you to virtually scale your site to a variety of common device types and also allows you to input specific, custom display dimensions to test any screen size. Using this tool I was able to render each page in a variety of screen sizes and check the results. For each resolution I checked for:
+
+- Clearly legible text
+- Consistent styling
+- No blocked or hidden elements
+
+Here are some screen shots demonstrating this for the site homepage
+
+- Mobile (375-667px)
+<p align="center">
+    <img src="readme-assets\mobile-375-667.PNG" width="150px"/>
+</p>
+- Tablet (768-1024px)
+<p align="center">
+    <img src="readme-assets\tablet-768-1024.PNG" width="200px"/>
+</p>
+- Desktop (1920-1080px)
+<p align="center">
+    <img src="readme-assets\desktop-1920-1080.PNG" width="500px"/>
+</p>
 
 ## **Bugs**
 
@@ -301,7 +326,7 @@ Python was tested and check against pep8 standards with pylint in vscode and ret
 
 original code
 
-```
+```py
 user_reviews = []
 for book in books:
     for i in range(len(book["reviews"])):
@@ -312,7 +337,7 @@ for book in books:
 
 updated code
 
-```
+```py
 user_reviews = []
 for book in books:
     for i in range(len(book["reviews"])):
@@ -325,7 +350,7 @@ for book in books:
 
 - During testing I discovered that logging out was causing a KeyError. Reading the error message I discovered this was due to the server checking for a 'user' key in session directly after removing this key. The logout route was directing to the login page which was checking for a user in session. Searching for a key that did not exist was causing the error. I instead decided to direct a user back to the homepage instead after logging out as it is unlikely for a user to want to log back in directly after having logged out.
   - The function I created to test if a user was logged in or not was also causing a key error when the login route was called with either an incorrect username or password. By placing the session check inside a try except block I was able to return 'False' for any state other than a logged in user resolving the error.
-  ```
+  ```py
   def is_logged_in():
   """Return true if user is in session"""
   try:
