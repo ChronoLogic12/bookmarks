@@ -2,7 +2,7 @@
 {% block content %}
 
 <!-- add a new book - only visable to a user in session-->
-{% if session.user %}
+{% if is_logged_in %}
 <div class="container col s12 m8 l6 offset-l3 offset-m2 center-align card">
     <div class="card-content valign-wrapper row action-card-container">
         <div class="col s9 center-align add-book">

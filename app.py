@@ -7,7 +7,6 @@ from flask import (
     abort)
 from flask_pymongo import PyMongo
 from bson.objectid import (ObjectId, InvalidId)
-from validators.utils import ValidationFailure
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -62,7 +61,7 @@ def set_average_rating_for_all_books(books):
 def is_logged_in():
     """Return true if user is in session"""
     try:
-        if session and session["user"]:
+        if session and session.get("user"):
             return True
         return False
     except KeyError:
@@ -98,25 +97,50 @@ def validate_image_url(image_url):
     Returns the image_url if true and a placeholder image
     if false.
     """
+    if not image_url:
+        return ""
     try:
-        result = validators.url(image_url)
-        if not validators.url(image_url) or isinstance(result, ValidationFailure):
-            return "https://res.cloudinary.com/chronologic12/image/upload/v1641392883/bookmarks/bookmarks-logo-placeholder_tuhbbz.svg"
+        is_valid = validators.url(image_url)
+        image_formats = (".png", ".jpeg", ".jpg")
+        if is_valid and any(value in image_url for value in image_formats):
+            return image_url
         else:
-            image_formats = (".png", ".jpeg", ".jpg")
-            if not any(value in image_url for value in image_formats):
-                return "https://res.cloudinary.com/chronologic12/image/upload/v1641392883/bookmarks/bookmarks-logo-placeholder_tuhbbz.svg"
-            else:
-                return image_url
+            flash("Invalid image URL")
+            return ""
+
     except requests.exceptions.Timeout:
         abort(404)
     except (SystemError, ValueError, TypeError):
         abort(500)
 
 
+def set_placeholder_image(book):
+    """
+    Takes a book object and updates the value of the image_url key 
+    to a placeholder value if the string is of length 0.
+    """
+    if len(book["image_url"]) >= 1:
+        return book
+    else:
+        book["image_url"] = "https://res.cloudinary.com/chronologic12/image/upload/v1641392883/bookmarks/bookmarks-logo-placeholder_tuhbbz.svg"
+        return book
+
+
+def set_placeholder_images_for_books_list(books_list):
+    """
+    Takes a list of book objects and sets a placeholder image for
+    any image_url value which is of length 0 via the 
+    set_placeholder_image method.
+    """
+    updated_image_url_books_list = []
+    for book in books_list:
+        updated_image_url_books_list.append(set_placeholder_image(book))
+    return updated_image_url_books_list
+
+
 def filter_editor_choices_from_books(books_list):
     """
-    Takes a list of book objects and returns a modified 
+    Takes a list of book objects and returns a modified
     list containing any books with truthy editors_choice_data
     values.
     """
@@ -136,6 +160,7 @@ def home():
     try:
         # find and order all books by their average rating
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
+        books = set_placeholder_images_for_books_list(books)
         books.sort(key=lambda book: book["avg_rating"], reverse=True)
         editors_choices = filter_editor_choices_from_books(books)
         return render_template("home.html", books=books[:6], editors_choices=editors_choices)
@@ -147,7 +172,8 @@ def home():
 def get_all_books():
     try:
         books = set_average_rating_for_all_books(list(mongo.db.books.find()))
-        return render_template("all_books.html", books=books)
+        books = set_placeholder_images_for_books_list(books)
+        return render_template("all_books.html", books=books, is_logged_in=is_logged_in())
     except (TypeError, ValueError, SystemError):
         abort(500)
 
@@ -171,6 +197,7 @@ def search():
                 }
             }]))
             books = set_average_rating_for_all_books(books)
+            books = set_placeholder_images_for_books_list(books)
             return render_template("all_books.html", books=books, search_query=query)
         except ValueError:
             flash("Invalid value. Minimum of one character required")
@@ -184,7 +211,8 @@ def get_book_by_id(book_id):
     try:
         book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
         book = set_average_rating(book)
-        return render_template("book.html", book=book)
+        book = set_placeholder_image(book)
+        return render_template("book.html", book=book, is_logged_in=is_logged_in(), user=session.get("user"))
     except InvalidId:
         abort(404)
     except(SystemError, ValueError, TypeError):
@@ -333,7 +361,6 @@ def edit_review(book_id):
                 {"$set": {"reviews.$": new_values}}
             )
             flash("Review Updated Successfully")
-            book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
             return redirect(url_for("get_book_by_id", book_id=book_id))
 
         except InvalidId:
@@ -447,6 +474,7 @@ def profile():
         user["review_count"] = len(user_reviews)
         # get all books added by user
         added_by_user = set_average_rating_for_all_books(list(mongo.db.books.find({"added_by": username})))
+        added_by_user = set_placeholder_images_for_books_list(added_by_user)
         return render_template("profile.html", user=user, reviews=user_reviews, added_books=added_by_user)
     except (InvalidId, TypeError):
         abort(404)
