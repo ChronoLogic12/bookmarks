@@ -44,10 +44,12 @@ BookMarks in an online book review site where users can share their opinions on 
     - [Error pages](#error-pages)
   - [Testing](#testing)
   - [Deployment](#deployment)
-    - [Heroku](#heroku)
+    - [**Cloning and running locally**](#cloning-and-running-locally)
+    - [**Connecting to Mongodb**](#connecting-to-mongodb)
+    - [Deploying to Heroku](#deploying-to-heroku)
   - [Potential Future Features](#potential-future-features)
   - [Credits](#credits)
-    - [Content](#content)
+    - [Services](#services)
     - [Media](#media)
     - [Help and info](#help-and-info)
 
@@ -411,9 +413,110 @@ For full testing documentation please see [TESTING.md](TESTING.md)
 
 ## Deployment
 
-### Heroku
+### **Cloning and running locally**
 
-This project was deployed using Heroku
+- To clone the repository for this project first navigate to the [Repository main page](https://github.com/ChronoLogic12/bookmarks) and click on the **code** button.
+
+<p align="center">
+    <img src="readme-assets\code.PNG" width="500px"/>
+</p>
+
+- To clone the repository using HTTPS, select the HTTPS tab under the clone section and click the icon to copy the provided url to the clipboard.
+
+<p align="center">
+    <img src="readme-assets\clone-https.PNG" width="300px"/>
+</p>
+
+- Open Git Bash and navigate to the location you would like to store the cloned repository.
+- Type `git clone` followed by the url you copied earlier.
+
+```sh
+$ git clone https://github.com/ChronoLogic12/bookmarks.git
+```
+
+- Press enter to create your cloned repository.
+- Open the project in your IDE of choice and install dependencies from the requirements.txt file by running `$ pip3 install -r requirements.txt` in your terminal.
+- To run a local development server from Bash:
+
+```sh
+    $ pipenv run dev
+```
+
+run on http://localhost:5000/home
+
+For more details on cloning repositories click [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
+### **Connecting to Mongodb**
+
+To use this application you will need to connect to mongodb (or similar database service).
+
+- Go to [Mongodb](https://www.mongodb.com/) and login/register an account.
+- Create a cluster and establish a database for the project.
+- Within the database create two clusters; one for 'users' and one for 'books'
+
+For more details on using mongodb click [here](https://docs.atlas.mongodb.com/getting-started/)
+
+Environment variables
+
+- To start create a .gitignore file and add the following filenames to prevent these files from being committed to our repository.
+
+```
+env.py
+__pycache__/
+```
+
+- Create a env.py file in the route directory.
+- Import os and set the necessary environment variables as shown bellow.
+
+1. To find your MONGO_URL go to your cluster overview page and select 'Connect'
+
+<p align="center">
+    <img src="readme-assets\mongodb-connect.PNG" width="400px"/>
+</p>
+
+2.  Click 'Connect your application'
+
+<p align="center">
+    <img src="readme-assets\mongodb-connection-method.PNG" width="400px"/>
+</p>
+
+3. From here copy the connection string provided and update the `<password>` and `<dbname>` sections with the root user password and the name of default database connection respectively.
+
+```py
+Import os
+
+os.environ.setdefault("IP", "IP")
+os.environ.setdefault("PORT", "PORT")
+os.environ.setdefault("SECRET_KEY", "SECRET_KEY")
+os.environ.setdefault("MONGO_URI", "MONGO_URI")
+os.environ.setdefault("MONGO_DBNAME", "DATABASE NAME")
+os.environ.setdefault("FLASK_ENV", "development")
+```
+
+### Deploying to Heroku
+
+To deploy this application to heroku first we must make sure to establish a requirements.txt and Procfile as heroku needs these to operate. First type:
+
+```sh
+$ pip3 freeze --local > requirements.txt
+```
+
+into the terminal to establish your requirements.txt file. Then enter:
+
+```sh
+echo web: gunicorn app:app > Procfile
+```
+
+to insert the startup commands for heroku into a Procfile.
+
+- Next, go to [Heroku](https://www.heroku.com/) and login/register
+- Navigate to your dashboard and select 'New' - 'Create new app'
+- Enter a unique application name and select your region then click 'Create app'
+- To connect your app and set up automatic deployment, select 'GitHub' under the 'Deployment method' section.
+- Select your GitHub profile and the name of the repository containing your code.
+- Add your config variables to Heroku by navigating to settings, scrolling down and clicking 'Reveal Config Vars'. Then input the key value pairs from your env.py file
+- Return to the deploy tab and select 'Enable Automatic deployment'
+- Once the app is deployed you can open the live site by selecting the 'Open app' button at the top right of the page.
 
 ---
 
@@ -424,12 +527,15 @@ This project was deployed using Heroku
 
 ## Credits
 
-### Content
+### Services
 
 - [Materialize](https://materializecss.com/) was used throughout site for layout, interactive components, element styling, colours and icons.
 - [Google fonts](https://fonts.google.com/) was used to link used fonts.
 - [Font Awesome](https://fontawesome.com/) was user for social icons in the site footer.
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/) micro web framework
+- [Heroku](https://www.heroku.com/) application host.
+- [Gunicorn](https://gunicorn.org/) wsgi server.
+- [Mongodb](https://www.mongodb.com/) non relational database.
 
 ### Media
 
