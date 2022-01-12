@@ -8,6 +8,8 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import (ObjectId, InvalidId)
 from werkzeug.security import generate_password_hash, check_password_hash
+if os.path.exists("env.py"):
+    import env
 
 
 app = Flask(__name__)
@@ -116,7 +118,7 @@ def validate_image_url(image_url):
 
 def set_placeholder_image(book):
     """
-    Takes a book object and updates the value of the image_url key 
+    Takes a book object and updates the value of the image_url key
     to a placeholder value if the string is of length 0.
     """
     if len(book["image_url"]) >= 1:
@@ -129,7 +131,7 @@ def set_placeholder_image(book):
 def set_placeholder_images_for_books_list(books_list):
     """
     Takes a list of book objects and sets a placeholder image for
-    any image_url value which is of length 0 via the 
+    any image_url value which is of length 0 via the
     set_placeholder_image method.
     """
     updated_image_url_books_list = []
