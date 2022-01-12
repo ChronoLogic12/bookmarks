@@ -27,6 +27,7 @@ BookMarks in an online book review site where users can share their opinions on 
       - [As an admin of this site I want to be able to -](#as-an-admin-of-this-site-i-want-to-be-able-to--)
     - [Wireframes](#wireframes)
     - [Design](#design)
+  - [Database schema](#database-schema)
   - [**Features**](#features)
     - [Navigation](#navigation)
     - [Footer](#footer)
@@ -44,6 +45,7 @@ BookMarks in an online book review site where users can share their opinions on 
   - [Testing](#testing)
   - [Deployment](#deployment)
     - [Heroku](#heroku)
+  - [Potential Future Features](#potential-future-features)
   - [Credits](#credits)
     - [Content](#content)
     - [Media](#media)
@@ -98,6 +100,52 @@ Wireframes were created for mobile, tablet and desktop screen sizes with [Figma]
 ### Design
 
 As the focus of this site is the books I chose to use a very simple colour pallet with only one colour. This single action colour makes it easy to identify important aspects of any page and avoids causing visual clutter when placed on a page with multiple book covers of varying colours and styles. The site uses consistent styling of elements throughout to further promote readability. The site uses materializes 12 column grid system to achieve a responsive layout.
+
+## Database schema
+
+The data for this project is stored using mongo db and uses two collections for data; One for books and one for users. This is how the data is organized.
+
+1. Books
+
+```
+{
+    "_id": <Object Id>,
+    "author": "Author Name" STRING REQUIRED,
+    "genre": "fantasy" STRING REQUIRED,
+    "image_url": "https://example-utl.com/image.jpg",
+    "summary": "Example book synopsis..." STRING REQUIRED,
+    "added_by": "123xyz STRING REQUIRED"
+    "reviews": [
+        {
+            "author": "123xyz" STRING REQUIRED,
+            "review": "Example book review..." STRING REQUIRED,
+            "rating": INT range(1,5),
+        },
+        {
+            "author": "123xyz" STRING REQUIRED,
+            "review": "Example book review..." STRING REQUIRED,
+            "rating": INT range(1,5) REQUIRED,
+        },
+        ...
+    ],
+    "editors_choice": true BOOLEAN REQUIRED,
+    "editors_choice_data": {
+        "picked_by": "123xyz" STRING,
+        "editors_comments": "editors comments on the book"  STRING
+    },
+}
+```
+
+2. Users
+
+```
+{
+    "_id": ObjectId("619d4a4c50a386db90b5ad8b"),
+    "username": "123xyz" STRING REQUIRED,
+    "password": <hashed password> STRING REQUIRED,
+}
+
+```
 
 ## **Features**
 
@@ -300,7 +348,7 @@ Submitting the form will update the current book details page and display the ne
 
 ### Edit review
 
-- Selecting to edit a review will direct the user to form identical to the add review form but pre filled with the review current information. The user is free to make any edits they like then re submit the review updating the database.
+- Selecting to edit a review will direct the user to form identical to the add review form but pre filled with the current review information. The user is free to make any edits they like then re submit the review updating the database.
 
 <p align="center">
     <img src="readme-assets\edit-review.PNG" width="500px"/>
@@ -369,6 +417,11 @@ This project was deployed using Heroku
 
 ---
 
+## Potential Future Features
+
+- Report system: As most of the data displayed on the site is user added (book cover images, book summaries, reviews) a system to allow users to report potentially inappropriate content to admin for review and removal would be an essential addition to future builds.
+- User defined book lists: A system to allow users to 'save' books to list such as 'planned to read' or 'favorites' for later viewing could be useful added functionality and encourage more return users.
+
 ## Credits
 
 ### Content
@@ -376,6 +429,7 @@ This project was deployed using Heroku
 - [Materialize](https://materializecss.com/) was used throughout site for layout, interactive components, element styling, colours and icons.
 - [Google fonts](https://fonts.google.com/) was used to link used fonts.
 - [Font Awesome](https://fontawesome.com/) was user for social icons in the site footer.
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/) micro web framework
 
 ### Media
 
