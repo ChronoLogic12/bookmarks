@@ -297,6 +297,165 @@ All Python was tested and checked against pep8 standards using pylint in vscode 
 
 ## **Manual Testing**
 
+To fully test my application in both the development and production environments I devised a series of manual checks to assure all aspect of the site work as intended. By completing these tests in the development and production environments concurrently I can also easy identify any differences between the two.
+
+1. Navbar - all pages (desktop)
+
+- Check navigation links are displayed as expected and lead to the intended pages when selected.
+  - Logged out: Home, Books, Sign In, Register
+  - Logged In: Home Books, Profile, Sign out
+- Current page is highlighted in navbar with active styling.
+- Brand logo directs user to homepage when clicked.
+
+2. Navbar - all pages (mobile)
+
+- Sidenav opens when the burger icon is clicked.
+- Check navigation links are displayed as expected and lead to the intended pages when selected.
+  - Logged out: Home, Books, Sign In, Register
+  - Logged In: Home Books, Profile, Sign out
+- Current page is highlighted in navbar with active styling.
+- Brand logo directs user to homepage when clicked.
+
+3. Footer - all pages
+
+- Check footer is displayed at the bottom of the page and contains the bookmarks copyright statement and social media link icons for facebook, instagram and twitter.
+- Footer social media links open on new pages to the expected destination pages.
+
+4. Home page (/home)
+
+- Check expected sections are displayed (Top rated books, Editors picks)
+- Top rated books contains the top six highest rated books. Book preview cards are displayed for each book.
+- Book preview cards contain book title, average star rating, author name, truncated description and book cover image.
+- Any cover image source url which is an empty string has been replaced with the placeholder image url.
+- Book preview cards link to the relevant book details page when clicked.
+- Editors picks section contains two picks each showing info for book title and author, picked by, genre, editors review and a book preview card for the relevant book.
+
+5. All books (/books)
+
+- Logged in: Add new book prompt is displayed and takes the user to the add book page when clicked.
+- logged out: Add new book prompt is not displayed.
+- Search
+  - Search bar is displayed at the top of the page.
+  - Entering a search with no value displays a prompt to the user to enter input.
+  - Entering a value into the search field displays to the user the number of matches the search received and the search term used. Book preview cards are also displayed for each matching result.
+  - Book preview cards contain book title, average star rating, author name, truncated description and book cover image.
+  - Book preview cards link to the relevant book details page when clicked.
+- Preview cards for all books added to the database are displayed.
+- Book preview cards contain book title, average star rating, author name, truncated description and book cover image.
+- Book preview cards link to the relevant book details page when clicked.
+
+6. Add Book (/book/add)
+
+- Attempting to access this page while logged out redirects to the login page.
+- Add book page displays a data input form to add a new book to the site.
+- Input fields are Title, Author, Genre, image URL and Summary.
+- All fields except image URL must contain data for the form to be submitted.
+- Image URL may be left blank.
+- Trying to submit the form with any blank mandatory fields prompts the user to input data to these fields.
+- Submitting the form takes the user to the newly generated book details page (/book/<book_id>/view) for the book they have added.
+- An invalid image URL submitted with a book is replaced with an empty string.
+
+7. Book details (/book/<book_id>/view)
+
+- Logged in as the user who added the current book to the site or admin:
+  - Card containing book delete and edit controls is rendered at the top of the page.
+  - Clicking the delete book button opens a modal asking the user to confirm deletion or cancel action.
+  - Clicking off the modal or selecting the cancel button closes the modal.
+  - Clicking the delete button removes the book and all related data from the database (/book/<book_id>/delete).
+- Logged out: Delete and edit controls are not rendered to page.
+- Book details card contains book title, average star rating, author name, complete book description, 'added by' and book cover image.
+- Any blank image url values have been replaced with a placeholder image url.
+- Logged in as a user that has not previously submitted a review for the current book:
+  - Card prompting the user to add a review is rendered bellow the books details section.
+  - Clicking the add a review button opens the add a review modal
+  - Add review modal contains a prompt asking users what they thought of <book.title>
+  - Add review modal contains form with text area input for review body and radio buttons for selecting a star rating.
+  - All fields must contain valid data before a submission can be made.
+  - Successfully submitting a review redirects the user to the books details details page now containing the new review and display a flash massage confirming the successful submission.
+- If current user is not logged in or has already submitted a review for this book no prompt is displayed.
+- Any reviews for the current book are displayed after all other page sections as expandable cards.
+  - Closed cards display correctly the name of the user who submitted the review and the star rating they gave.
+  - Clicking on the review causes it to expand and show the body of the review bellow other details.
+  - Only one review may be open at a time. Clicking on the review again or opening another closes the currently open review.
+- Logged in admin user:
+  - All expanded reviews contain a delete review button.
+  - Clicking the delete review button opens a modal asking the user to confirm deletion or cancel action.
+  - Clicking off the modal or selecting the cancel button closes the modal.
+  - Clicking the delete button removes the review from the database (/book/<book_id>/review/delete) and re renders the page sans the deleted review.
+- Logged in user who has submitted a review:
+  - The review submitted by the current user displays edit and delete controls when expanded.
+  - Clicking the delete review button opens a modal asking the user to confirm deletion or cancel action.
+  - Clicking off the modal or selecting the cancel button closes the modal.
+  - Clicking the delete button removes the review from the database (/book/<book_id>/review/delete) and re renders the page sans the deleted review.
+  - Clicking the edit review button redirects the user to the edit review page.
+
+8. Edit book (/book/<book_id>/edit>)
+
+- Attempting to access this page while logged out redirects to the login page.
+- Edit book page displays a data input form in the same format as the add book form.
+- Input fields are Title, Author, Genre, image URL and Summary and are pre populated with the info from the book that has been selected to edit.
+- All fields except image URL must contain data for the form to be submitted.
+- Image URL may be left blank.
+- Trying to submit the form with any blank mandatory fields prompts the user to input data to these fields.
+- Submitting the form redirects the user to the book details page which displays the updated info.
+- An invalid image URL submitted with a book is replaced with an empty string.
+
+9.  Edit review (/book/<book_id>/edit)
+
+- Attempting to access this page while logged out redirects to the login page.
+- Edit review page displays a data input form in the same format as the add review form.
+- Input fields are review body and star rating and are pre populated with the info from the review that has been selected to edit.
+- Add review modal contains a prompt asking users what they thought of <book.title>
+- Add review modal contains a form with a text area input for review body and radio buttons for selecting a star rating.
+- All fields must contain valid data before a submission can be made.
+- Successfully submitting a review redirects the user to the books details details page now containing the updated info for the review and display a flash massage confirming the successful update.
+
+10. Profile (/profile)
+
+- Attempting to access this page while logged out redirects to the login page.
+- The first section of the profile page contains a banner displaying the current users username and an accurate count of the users total submitted reviews.
+- Any reviews the user has submitted are displayed after the 'User reviews' banner as expandable cards.
+- Closed cards display correctly the name of the book they were submitted to and the star rating that was given.
+- Clicking on the review causes it to expand and show the body of the review bellow other details.
+- Only one review may be open at a time. Clicking on the review again or opening another closes the currently open review.
+- Any books the user has submitted is displayed a book preview cards under the Added books banner.
+- Book preview cards contain book title, average star rating, author name, truncated description and book cover image.
+- Any cover image source url which is an empty string has been replaced with the placeholder image url.
+- Book preview cards link to the relevant book details page when clicked.
+
+11. Sign in (/login)
+
+- Attempting to access this page while logged in redirect sto the home page.
+- Login page displays a data input form with fields for Username and Password and a submission button.
+- Invalid data:
+  - Submitting the form with empty fields or fields which do not pass the form validation, prompts the user to check/enter data to relevant fields
+  - Submitting the form with with an invalid username redirect to the login page and display a flash message informing the user
+  - Submitting the form with with an invalid password redirect to the login page and display a flash message informing the user
+  - Submitting the form with with an invalid username and password redirect to the login page and display a flash message informing the user
+- Valid data
+  - Submitting the form with a valid username and password logs the user in and redirects to the home page
+  - A flash message is displayed welcoming the user
+- A prompt for non registered users to register and a button linking to the registration page render under the sign in form. Clicking the link redirects to the registration page.
+
+12. Register (/register)
+
+- Attempting to access this page while logged in redirects to the home page.
+- Register page displays a data input form with fields for Username and Password and a submission button.
+- Invalid data:
+  - Submitting the form with empty fields or fields which do not pass the form validation, prompts the user to check/enter data to relevant fields
+  - Attempting to register with a username already in user redirects to the login page and displays a flash message informing the user that the name is in use.
+- Valid data
+  - Submitting the form with a valid username and password registers the new users data, logs the user in and redirects to the home page
+  - A flash message is displayed confirming successful registration.
+
+13. Sign out (/logout)
+
+- Sign out is only available from the navbar when logged in.
+- Selecting Sign out removes the user from session and redirect them to the homepage.
+- A flash message is displayed thanking the user for visiting.
+
+I have completed these checks for both the development and production environments and found all site elements, CRUD functionality and layout/styling all worked as intended.
+
 ## **Responsive Design**
 
 To test the responsive design of my site I checked each page in various sizes using Google Chromes Dev tools. Chrome dev tools allow you to virtually scale your site to a variety of common device types and also allows you to input specific, custom display dimensions to test any screen size. Using this tool I was able to render each page in a variety of screen sizes and check the results. For each resolution I checked for:
