@@ -424,7 +424,7 @@ For full testing documentation please see [TESTING.md](TESTING.md)
 - To clone the repository using HTTPS, select the HTTPS tab under the clone section and click the icon to copy the provided url to the clipboard.
 
 <p align="center">
-    <img src="readme-assets\clone-https.PNG" width="300px"/>
+    <img src="readme-assets\clone-https.png" width="300px"/>
 </p>
 
 - Open Git Bash and navigate to the location you would like to store the cloned repository.
@@ -471,13 +471,13 @@ __pycache__/
 1. To find your MONGO_URL go to your cluster overview page and select 'Connect'
 
 <p align="center">
-    <img src="readme-assets\mongodb-connect.PNG" width="400px"/>
+    <img src="readme-assets\mongodb-connect.png" width="400px"/>
 </p>
 
 2.  Click 'Connect your application'
 
 <p align="center">
-    <img src="readme-assets\mongodb-connection-method.PNG" width="400px"/>
+    <img src="readme-assets\mongodb-connection-method.png" width="400px"/>
 </p>
 
 3. From here copy the connection string provided and update the `<password>` and `<dbname>` sections with the root user password and the name of default database connection respectively.
