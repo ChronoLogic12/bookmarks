@@ -20,7 +20,7 @@ pylint==2.12.2
 pylint-flask==0.6
 pylint-plugin-utils==0.7
 pymongo==4.0.1
-requests==2.33.0
+requests==2.32.5
 six==1.16.0
 toml==0.10.2
 typing_extensions==4.0.1
