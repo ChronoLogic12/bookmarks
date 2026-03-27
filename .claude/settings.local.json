@@ -5,7 +5,11 @@
       "Bash(pip install:*)",
       "Bash(pip show:*)",
       "Bash(pip download:*)",
-      "Bash(unzip -p /tmp/flask_check/Flask-2.0.2-py3-none-any.whl Flask-2.0.2.dist-info/METADATA)"
+      "Bash(unzip -p /tmp/flask_check/Flask-2.0.2-py3-none-any.whl Flask-2.0.2.dist-info/METADATA)",
+      "Bash(ls c:/Users/msutt/Projects/Coding/bookmarks/*.txt c:/Users/msutt/Projects/Coding/bookmarks/Pipfile* c:/Users/msutt/Projects/Coding/bookmarks/pyproject.toml c:/Users/msutt/Projects/Coding/bookmarks/Procfile c:/Users/msutt/Projects/Coding/bookmarks/runtime.txt)",
+      "Bash(uv --version)",
+      "Bash(uv lock:*)",
+      "Bash(uv python:*)"
     ]
   }
 }
