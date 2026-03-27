@@ -5,7 +5,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
     abort)
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from bson.objectid import (ObjectId, InvalidId)
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -14,11 +14,15 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
-mongo = PyMongo(app)
+_client = MongoClient(os.environ.get("MONGO_URI"), connect=False)
+
+class _Mongo:
+    db = _client.get_default_database()
+
+mongo = _Mongo()
 
 
 def set_average_rating(book):
