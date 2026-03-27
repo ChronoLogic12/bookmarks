@@ -1,5 +1,5 @@
 astroid==2.9.3
-certifi==2021.10.8
+certifi==2026.2.25
 charset-normalizer==2.0.10
 click==8.0.3
 colorama==0.4.4
@@ -11,7 +11,7 @@ gunicorn==20.1.0
 idna==3.3
 isort==5.10.1
 itsdangerous==2.0.1
-Jinja2==3.0.3
+Jinja2==3.1.6
 lazy-object-proxy==1.7.1
 MarkupSafe==2.0.1
 mccabe==0.6.1
@@ -20,11 +20,11 @@ pylint==2.12.2
 pylint-flask==0.6
 pylint-plugin-utils==0.7
 pymongo==4.0.1
-requests==2.27.1
+requests==2.33.0
 six==1.16.0
 toml==0.10.2
 typing_extensions==4.0.1
-urllib3==1.26.8
+urllib3==2.6.3
 validators==0.18.2
-Werkzeug==2.0.2
+Werkzeug==2.3.8
 wrapt==1.13.3
