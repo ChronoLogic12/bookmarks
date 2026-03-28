@@ -8,7 +8,7 @@
 
 BookMarks in an online book review site where users can share their opinions on books the have read and search for their next great read. Whether you love pipe smoking detectives and rainy cities, plucky farm animals banding together to save the day or even action packed battles in space; Share the books that you love with BookMarks. Give your marks and share your review with the community to help others to hear about your top reads and find your next all time favorite.
 
-[BookMarks - Live site](https://bookmarks-flask-app.herokuapp.com/home)
+[BookMarks - Live site](https://bookmarks-5lb2.onrender.com/home)
 
 <p align="center">
     <img src="readme-assets\responsive1.PNG" width="1200px"/>
@@ -435,11 +435,10 @@ $ git clone https://github.com/ChronoLogic12/bookmarks.git
 ```
 
 - Press enter to create your cloned repository.
-- Open the project in your IDE of choice and install dependencies from the requirements.txt file by running `$ pip3 install -r requirements.txt` in your terminal.
-- To run a local development server from Bash:
+- Open the project in your IDE of choice and run the local development server from the project root:
 
 ```sh
-    $ pipenv run dev
+    $ uv run flask run
 ```
 
 run on http://localhost:5000/home
@@ -483,40 +482,29 @@ __pycache__/
 3. From here copy the connection string provided and update the `<password>` and `<dbname>` sections with the root user password and the name of default database connection respectively.
 
 ```py
-Import os
+import os
 
-os.environ.setdefault("IP", "IP")
-os.environ.setdefault("PORT", "PORT")
-os.environ.setdefault("SECRET_KEY", "SECRET_KEY")
-os.environ.setdefault("MONGO_URI", "MONGO_URI")
-os.environ.setdefault("MONGO_DBNAME", "DATABASE NAME")
-os.environ.setdefault("FLASK_ENV", "development")
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "your-secret-key")
+os.environ.setdefault("MONGO_URI", "mongodb+srv://<user>:<password>@<cluster>/<dbname>")
 ```
 
-### Deploying to Heroku
+### Deploying to Render
 
-To deploy this application to heroku first we must make sure to establish a requirements.txt and Procfile as heroku needs these to operate. First type:
-
-```sh
-$ pip3 freeze --local > requirements.txt
-```
-
-into the terminal to establish your requirements.txt file. Then enter:
-
-```sh
-echo web: gunicorn app:app > Procfile
-```
-
-to insert the startup commands for heroku into a Procfile.
-
-- Next, go to [Heroku](https://www.heroku.com/) and login/register
-- Navigate to your dashboard and select 'New' - 'Create new app'
-- Enter a unique application name and select your region then click 'Create app'
-- To connect your app and set up automatic deployment, select 'GitHub' under the 'Deployment method' section.
-- Select your GitHub profile and the name of the repository containing your code.
-- Add your config variables to Heroku by navigating to settings, scrolling down and clicking 'Reveal Config Vars'. Then input the key value pairs from your env.py file
-- Return to the deploy tab and select 'Enable Automatic deployment'
-- Once the app is deployed you can open the live site by selecting the 'Open app' button at the top right of the page.
+- Go to [Render](https://render.com/) and login/register
+- Navigate to your dashboard and select 'New' - 'Web Service'
+- Connect your GitHub account and select the repository containing your code
+- Configure the service with the following settings:
+  - **Runtime**: Python
+  - **Build command**: `uv sync --frozen`
+  - **Start command**: `uv run gunicorn app:app`
+- Add your environment variables under the 'Environment' section:
+  - `MONGO_URI` — your MongoDB Atlas connection string (include the database name in the URI path)
+  - `SECRET_KEY` — a secure random string
+  - `PYTHON_VERSION` — `3.13`
+- Select 'Create Web Service' to deploy
+- Render will automatically redeploy on every push to your connected branch
 
 ---
 
@@ -532,8 +520,8 @@ to insert the startup commands for heroku into a Procfile.
 - [Materialize](https://materializecss.com/) was used throughout site for layout, interactive components, element styling, colours and icons.
 - [Google fonts](https://fonts.google.com/) was used to link used fonts.
 - [Font Awesome](https://fontawesome.com/) was user for social icons in the site footer.
-- [Flask](https://flask.palletsprojects.com/en/2.0.x/) micro web framework
-- [Heroku](https://www.heroku.com/) application host.
+- [Flask](https://flask.palletsprojects.com/en/3.1.x/) micro web framework
+- [Render](https://render.com/) application host.
 - [Gunicorn](https://gunicorn.org/) wsgi server.
 - [Mongodb](https://www.mongodb.com/) non relational database.
 
@@ -550,5 +538,5 @@ to insert the startup commands for heroku into a Procfile.
 - [MND Web Docs](https://developer.mozilla.org/en-US/) - general knowledge.
 - [Stack Overflow](https://stackoverflow.com/) - debugging.
 - Interactive star rating element adapted from [the work of Jordan-Simonds (jexordexan)](https://codepen.io/jexordexan/pen/yyYEJa)
-- [Flask documentation](https://flask.palletsprojects.com/en/2.0.x/)
-- [Jinja documentation](https://jinja.palletsprojects.com/en/3.0.x/)
+- [Flask documentation](https://flask.palletsprojects.com/en/3.1.x/)
+- [Jinja documentation](https://jinja.palletsprojects.com/en/3.1.x/)
